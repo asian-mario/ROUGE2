@@ -7,7 +7,7 @@ namespace ROUGE2 {
 
 	void Log::Init() {
 		spdlog::set_pattern("%^[%T] %n: %v%$"); //color + timestamp + log name + msg
-		s_CoreLogger = spdlog::stdout_color_mt("ROUGE2");
+		s_CoreLogger = spdlog::stdout_color_mt("ROUGE2"); //col - severity - yellow/medrisk
 		s_CoreLogger->set_level(spdlog::level::trace);
 
 		s_ClientLogger = spdlog::stdout_color_mt("APP");
