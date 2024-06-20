@@ -11,3 +11,5 @@
 #else
 	#error ROUGE2 ONLY SUPPORTS x64 WINDOWS!
 #endif
+
+#define BIT(x) (1 << x)

@@ -97,7 +97,7 @@
       <ImportLibrary>..\bin\Debug-windows-x86_64\ROUGE2\ROUGE2.lib</ImportLibrary>
     </Link>
     <PostBuildEvent>
-      <Command>IF EXIST ..\bin\Debug-windows-x86_64\ROUGE2\ROUGE2.dll\ (xcopy /Q /E /Y /I ..\bin\Debug-windows-x86_64\ROUGE2\ROUGE2.dll ..\bin\Debug-windows-x86_64 &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Debug-windows-x86_64\ROUGE2\ROUGE2.dll ..\bin\Debug-windows-x86_64 &gt; nul)</Command>
+      <Command>IF EXIST ..\bin\Debug-windows-x86_64\ROUGE2\ROUGE2.dll\ (xcopy /Q /E /Y /I ..\bin\Debug-windows-x86_64\ROUGE2\ROUGE2.dll ..\bin\Debug-windows-x86_64\Sandbox &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Debug-windows-x86_64\ROUGE2\ROUGE2.dll ..\bin\Debug-windows-x86_64\Sandbox &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -121,7 +121,7 @@
       <ImportLibrary>..\bin\Release-windows-x86_64\ROUGE2\ROUGE2.lib</ImportLibrary>
     </Link>
     <PostBuildEvent>
-      <Command>IF EXIST ..\bin\Release-windows-x86_64\ROUGE2\ROUGE2.dll\ (xcopy /Q /E /Y /I ..\bin\Release-windows-x86_64\ROUGE2\ROUGE2.dll ..\bin\Release-windows-x86_64 &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Release-windows-x86_64\ROUGE2\ROUGE2.dll ..\bin\Release-windows-x86_64 &gt; nul)</Command>
+      <Command>IF EXIST ..\bin\Release-windows-x86_64\ROUGE2\ROUGE2.dll\ (xcopy /Q /E /Y /I ..\bin\Release-windows-x86_64\ROUGE2\ROUGE2.dll ..\bin\Release-windows-x86_64\Sandbox &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Release-windows-x86_64\ROUGE2\ROUGE2.dll ..\bin\Release-windows-x86_64\Sandbox &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
@@ -139,15 +139,19 @@
       <ImportLibrary>..\bin\Dist-windows-x86_64\ROUGE2\ROUGE2.lib</ImportLibrary>
     </Link>
     <PostBuildEvent>
-      <Command>IF EXIST ..\bin\Dist-windows-x86_64\ROUGE2\ROUGE2.dll\ (xcopy /Q /E /Y /I ..\bin\Dist-windows-x86_64\ROUGE2\ROUGE2.dll ..\bin\Dist-windows-x86_64 &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Dist-windows-x86_64\ROUGE2\ROUGE2.dll ..\bin\Dist-windows-x86_64 &gt; nul)</Command>
+      <Command>IF EXIST ..\bin\Dist-windows-x86_64\ROUGE2\ROUGE2.dll\ (xcopy /Q /E /Y /I ..\bin\Dist-windows-x86_64\ROUGE2\ROUGE2.dll ..\bin\Dist-windows-x86_64\Sandbox &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Dist-windows-x86_64\ROUGE2\ROUGE2.dll ..\bin\Dist-windows-x86_64\Sandbox &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\ROUGE2.h" />
+    <ClInclude Include="ApplicationEvent.h" />
+    <ClInclude Include="Event.h" />
+    <ClInclude Include="KeyEvent.h" />
+    <ClInclude Include="MouseEvent.h" />
     <ClInclude Include="src\ROUGE2\Application.h" />
     <ClInclude Include="src\ROUGE2\Core.h" />
     <ClInclude Include="src\ROUGE2\EntryPoint.h" />
     <ClInclude Include="src\ROUGE2\Log.h" />
+    <ClInclude Include="src\ROUGE2\ROUGE2.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ROUGE2\Application.cpp" />
