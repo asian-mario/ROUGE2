@@ -1,8 +1,8 @@
 #pragma once
-
+#include "r2pch.h"
 #include "Event.h"
 
-#include <sstream>
+
 
 namespace ROUGE2 {
 	class ROUGE2_API WindowResizeEvent : public Event {
@@ -15,7 +15,7 @@ namespace ROUGE2 {
 
 		std::string ToString() const override {
 			std::stringstream ss;
-			ss << "WindowResizeEvent" << m_Width << ", " << m_Height;
+			ss << "WindowResizeEvent: " << m_Width << ", " << m_Height;
 			return ss.str();
 		}
 

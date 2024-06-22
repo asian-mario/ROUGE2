@@ -5,10 +5,11 @@
       <UniqueIdentifier>{796BEBCC-650D-16A3-4EC8-29F73A099DF3}</UniqueIdentifier>
     </Filter>
     <Filter Include="ROUGE2\Events">
-      <UniqueIdentifier>{bf3f5196-d267-44fc-bcdd-7eaf1668ae2f}</UniqueIdentifier>
+      <UniqueIdentifier>{3D5518B1-A915-94E7-7250-DD64DECFD8C3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\ROUGE2.h" />
     <ClInclude Include="src\ROUGE2\Application.h">
       <Filter>ROUGE2</Filter>
     </ClInclude>
@@ -18,24 +19,22 @@
     <ClInclude Include="src\ROUGE2\EntryPoint.h">
       <Filter>ROUGE2</Filter>
     </ClInclude>
+    <ClInclude Include="src\ROUGE2\Events\ApplicationEvent.h">
+      <Filter>ROUGE2\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ROUGE2\Events\Event.h">
+      <Filter>ROUGE2\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ROUGE2\Events\KeyEvent.h">
+      <Filter>ROUGE2\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ROUGE2\Events\MouseEvent.h">
+      <Filter>ROUGE2\Events</Filter>
+    </ClInclude>
     <ClInclude Include="src\ROUGE2\Log.h">
       <Filter>ROUGE2</Filter>
     </ClInclude>
-    <ClInclude Include="src\ROUGE2\ROUGE2.h">
-      <Filter>ROUGE2</Filter>
-    </ClInclude>
-    <ClInclude Include="ApplicationEvent.h">
-      <Filter>ROUGE2\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="Event.h">
-      <Filter>ROUGE2\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="KeyEvent.h">
-      <Filter>ROUGE2\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="MouseEvent.h">
-      <Filter>ROUGE2\Events</Filter>
-    </ClInclude>
+    <ClInclude Include="src\r2pch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ROUGE2\Application.cpp">
@@ -44,5 +43,6 @@
     <ClCompile Include="src\ROUGE2\Log.cpp">
       <Filter>ROUGE2</Filter>
     </ClCompile>
+    <ClCompile Include="src\r2pch.cpp" />
   </ItemGroup>
 </Project>

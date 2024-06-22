@@ -1,9 +1,9 @@
 #pragma once
 
-#include "../Core.h"
+#include "r2pch.h"
+#include "ROUGE2/Core.h"
 
-#include <string> //need to add this to core
-#include <functional>
+
 
 namespace ROUGE2 {
 	/*

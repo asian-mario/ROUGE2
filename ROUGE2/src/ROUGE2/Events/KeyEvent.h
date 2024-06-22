@@ -3,7 +3,6 @@
 
 #include "Event.h"
 
-#include <sstream>
 
 namespace ROUGE2 {
 	class ROUGE2_API KeyEvent : public Event {

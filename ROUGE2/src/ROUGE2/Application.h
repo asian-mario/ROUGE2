@@ -1,6 +1,8 @@
 #pragma once
 
+#include "r2pch.h"
 #include "Core.h"
+#include "Events/Event.h"
 
 namespace ROUGE2 {
 
