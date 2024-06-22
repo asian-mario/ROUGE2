@@ -1,5 +1,4 @@
 #include "r2pch.h"
-#include "Log.h"
 
 namespace ROUGE2 {
 

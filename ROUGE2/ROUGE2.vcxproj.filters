@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <Filter Include="Platform">
+      <UniqueIdentifier>{2AC788B4-1694-E3BF-3FAD-D1672BD9184E}</UniqueIdentifier>
+    </Filter>
     <Filter Include="ROUGE2">
       <UniqueIdentifier>{796BEBCC-650D-16A3-4EC8-29F73A099DF3}</UniqueIdentifier>
     </Filter>
@@ -9,6 +12,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Platform\WindowsWindow.h">
+      <Filter>Platform</Filter>
+    </ClInclude>
     <ClInclude Include="src\ROUGE2.h" />
     <ClInclude Include="src\ROUGE2\Application.h">
       <Filter>ROUGE2</Filter>
@@ -34,9 +40,15 @@
     <ClInclude Include="src\ROUGE2\Log.h">
       <Filter>ROUGE2</Filter>
     </ClInclude>
+    <ClInclude Include="src\ROUGE2\Window.h">
+      <Filter>ROUGE2</Filter>
+    </ClInclude>
     <ClInclude Include="src\r2pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Platform\WindowsWindow.cpp">
+      <Filter>Platform</Filter>
+    </ClCompile>
     <ClCompile Include="src\ROUGE2\Application.cpp">
       <Filter>ROUGE2</Filter>
     </ClCompile>

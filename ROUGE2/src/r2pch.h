@@ -12,6 +12,7 @@
 #include <unordered_map>
 #include <unordered_set>
 
+#include "ROUGE2/Log.h"
 
 #ifdef R2_PLATFORM_WINDOWS
 	#include <Windows.h>

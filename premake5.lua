@@ -9,6 +9,10 @@ workspace "ROUGE2"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+IncludeDir = {}
+IncludeDir["GLFW"] = "ROUGE2/vendor/GLFW/include"
+
+include "ROUGE2/vendor/GLFW"
 
 project "ROUGE2"
 	location "ROUGE2"
@@ -28,11 +32,18 @@ project "ROUGE2"
 
 	includedirs{
 		"%{prj.name}/src",
-		"%{prj.name}/vendor/spdlog/include"
+		"%{prj.name}/vendor/spdlog/include",
+		"%{IncludeDir.GLFW}"
+	}
+
+	links{
+		"GLFW",
+		"opengl32.lib",
+		"dwmapi.lib"
 	}
 
 	filter "system:windows"
-		cppdialect "c++17"
+		cppdialect "C++17"
 		staticruntime "On"
 		systemversion "latest"
 
@@ -50,12 +61,12 @@ project "ROUGE2"
 		symbols "On"
 
 	filter "configurations:Release"
-	defines "R2_RELEASE"
-	optimize "On"
+		defines "R2_RELEASE"
+		optimize "On"
 
 	filter "configurations:Debug"
-	defines "R2_DIST"
-	optimize "On"
+		defines "R2_DIST"
+		optimize "On"
 
 project "Sandbox"
 	location "Sandbox"
@@ -81,7 +92,7 @@ project "Sandbox"
 	}
 
 	filter "system:windows"
-		cppdialect "c++17"
+		cppdialect "C++17"
 		staticruntime "On"
 		systemversion "latest"
 
@@ -95,9 +106,9 @@ project "Sandbox"
 		symbols "On"
 
 	filter "configurations:Release"
-	defines "R2_RELEASE"
-	optimize "On"
+		defines "R2_RELEASE"
+		optimize "On"
 
 	filter "configurations:Debug"
-	defines "R2_DIST"
-	optimize "On"
+		defines "R2_DIST"
+		optimize "On"

@@ -3,24 +3,27 @@
 #include "Events/ApplicationEvent.h"
 #include "ROUGE2/Log.h"
 
+#include <GLFW/glfw3.h>
+
 namespace ROUGE2 {
-	Application::Application() {
 
+	Application::Application()
+	{
+		m_Window = std::unique_ptr<Window>(Window::Create());
 	}
 
-	Application::~Application() {
-
+	Application::~Application()
+	{
 	}
 
-	void Application::Run() {
-		WindowResizeEvent e(1920, 1080);
-		if (e.IsInCategory(EventCategoryApplication)) {
-			R2_TRACE(e);
+	void Application::Run()
+	{
+		while (m_Running)
+		{
+			glClearColor(1, 0, 0, 1);
+			glClear(GL_COLOR_BUFFER_BIT);
+			m_Window->OnUpdate();
 		}
-		if (e.IsInCategory(EventCategoryInput)) { //test to see if it identifies category correctly
-			R2_TRACE(e);
-		}
-
-		while (true);
 	}
+
 }

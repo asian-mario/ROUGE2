@@ -1,3 +1,6 @@
 [submodule "ROUGE2/vendor/spdlog"]
 	path = ROUGE2/vendor/spdlog
 	url = https://github.com/gabime/spdlog.git
+[submodule "ROUGE2/vendor/GLFW"]
+	path = ROUGE2/vendor/GLFW
+	url = https://github.com/glfw/glfw
