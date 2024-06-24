@@ -58,14 +58,17 @@ project "ROUGE2"
 		
 	filter "configurations:Debug"
 		defines "R2_DEBUG"
+		buildoptions "/MDd"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "R2_RELEASE"
+		buildoptions "/MD"
 		optimize "On"
 
 	filter "configurations:Debug"
 		defines "R2_DIST"
+		buildoptions "/MD"
 		optimize "On"
 
 project "Sandbox"
@@ -103,12 +106,15 @@ project "Sandbox"
 
 	filter "configurations:Debug"
 		defines "R2_DEBUG"
+		buildoptions "/MDd"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "R2_RELEASE"
+		buildoptions "/MD"
 		optimize "On"
 
 	filter "configurations:Debug"
 		defines "R2_DIST"
+		buildoptions "/MD"
 		optimize "On"

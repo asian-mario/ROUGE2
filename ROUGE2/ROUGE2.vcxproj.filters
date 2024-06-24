@@ -37,6 +37,12 @@
     <ClInclude Include="src\ROUGE2\Events\MouseEvent.h">
       <Filter>ROUGE2\Events</Filter>
     </ClInclude>
+    <ClInclude Include="src\ROUGE2\Layer.h">
+      <Filter>ROUGE2</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ROUGE2\LayerStack.h">
+      <Filter>ROUGE2</Filter>
+    </ClInclude>
     <ClInclude Include="src\ROUGE2\Log.h">
       <Filter>ROUGE2</Filter>
     </ClInclude>
@@ -50,6 +56,12 @@
       <Filter>Platform</Filter>
     </ClCompile>
     <ClCompile Include="src\ROUGE2\Application.cpp">
+      <Filter>ROUGE2</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ROUGE2\Layer.cpp">
+      <Filter>ROUGE2</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ROUGE2\LayerStack.cpp">
       <Filter>ROUGE2</Filter>
     </ClCompile>
     <ClCompile Include="src\ROUGE2\Log.cpp">

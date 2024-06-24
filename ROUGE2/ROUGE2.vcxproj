@@ -88,6 +88,7 @@
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <AdditionalOptions>/MDd /MD %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -115,6 +116,7 @@
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <AdditionalOptions>/MD %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -158,6 +160,8 @@
     <ClInclude Include="src\ROUGE2\Events\Event.h" />
     <ClInclude Include="src\ROUGE2\Events\KeyEvent.h" />
     <ClInclude Include="src\ROUGE2\Events\MouseEvent.h" />
+    <ClInclude Include="src\ROUGE2\Layer.h" />
+    <ClInclude Include="src\ROUGE2\LayerStack.h" />
     <ClInclude Include="src\ROUGE2\Log.h" />
     <ClInclude Include="src\ROUGE2\Window.h" />
     <ClInclude Include="src\r2pch.h" />
@@ -165,6 +169,8 @@
   <ItemGroup>
     <ClCompile Include="src\Platform\WindowsWindow.cpp" />
     <ClCompile Include="src\ROUGE2\Application.cpp" />
+    <ClCompile Include="src\ROUGE2\Layer.cpp" />
+    <ClCompile Include="src\ROUGE2\LayerStack.cpp" />
     <ClCompile Include="src\ROUGE2\Log.cpp" />
     <ClCompile Include="src\r2pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>

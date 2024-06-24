@@ -4,6 +4,7 @@
 
 
 #include "ROUGE2/Application.h"
+#include "ROUGE2/Layer.h"
 #include "ROUGE2/Log.h"
 
 
