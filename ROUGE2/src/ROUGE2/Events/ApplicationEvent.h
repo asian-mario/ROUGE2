@@ -11,7 +11,7 @@ namespace ROUGE2 {
 			:m_Width(width), m_Height(height) {}
 
 		inline unsigned int GetWidth() const { return m_Width; }
-		inline unsigned int GetHeignt() const { return m_Height; }
+		inline unsigned int GetHeight() const { return m_Height; }
 
 		std::string ToString() const override {
 			std::stringstream ss;

@@ -1,5 +1,6 @@
 workspace "ROUGE2"
 	architecture "x64"
+	startproject "Sandbox"
 
 	configurations{
 		"Debug", 
@@ -67,7 +68,7 @@ project "ROUGE2"
 		}
 
 		postbuildcommands{
-			("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
+			("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/Sandbox/\"")
 		}
 		
 	filter "configurations:Debug"
@@ -120,15 +121,15 @@ project "Sandbox"
 
 	filter "configurations:Debug"
 		defines "R2_DEBUG"
-		buildoptions "/MDd"
+		runtime "Debug"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "R2_RELEASE"
-		buildoptions "/MD"
+		runtime "Release"
 		optimize "On"
 
 	filter "configurations:Debug"
 		defines "R2_DIST"
-		buildoptions "/MD"
+		runtime "Release"
 		optimize "On"
