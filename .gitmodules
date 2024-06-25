@@ -4,3 +4,6 @@
 [submodule "ROUGE2/vendor/GLFW"]
 	path = ROUGE2/vendor/GLFW
 	url = https://github.com/glfw/glfw
+[submodule "ROUGE2/vendor/imgui"]
+	path = ROUGE2/vendor/imgui
+	url = https://github.com/ocornut/imgui

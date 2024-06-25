@@ -20,6 +20,7 @@ class Sandbox : public ROUGE2::Application {
 public:
 	Sandbox() {
 		PushLayer(new ExLayer());
+		PushOverlay(new ROUGE2::ImGuiLayer());
 	}
 
 	~Sandbox() {
