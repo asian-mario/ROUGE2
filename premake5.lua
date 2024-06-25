@@ -11,8 +11,12 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 IncludeDir = {}
 IncludeDir["GLFW"] = "ROUGE2/vendor/GLFW/include"
+IncludeDir["Glad"] = "ROUGE2/vendor/Glad/include"
+
 
 include "ROUGE2/vendor/GLFW"
+include "ROUGE2/vendor/Glad"
+
 
 project "ROUGE2"
 	location "ROUGE2"
@@ -33,11 +37,14 @@ project "ROUGE2"
 	includedirs{
 		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include",
-		"%{IncludeDir.GLFW}"
+		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.Glad}"
+
 	}
 
 	links{
 		"GLFW",
+		"Glad",
 		"opengl32.lib",
 		"dwmapi.lib"
 	}
@@ -49,7 +56,8 @@ project "ROUGE2"
 
 		defines{
 			"R2_PLATFORM_WINDOWS",
-			"R2_BUILD_DLL"
+			"R2_BUILD_DLL",
+			"GLFW_INCLUDE_NONE"
 		}
 
 		postbuildcommands{

@@ -3,6 +3,8 @@
 
 #include <GLFW/glfw3.h>
 
+
+
 namespace ROUGE2 {
 	class WindowsWindow : public Window {
 	public:
