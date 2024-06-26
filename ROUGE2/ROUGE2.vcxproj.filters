@@ -24,6 +24,9 @@
     <ClInclude Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.h">
       <Filter>Platform\OpenGL</Filter>
     </ClInclude>
+    <ClInclude Include="src\Platform\Windows\WindowsInput.h">
+      <Filter>Platform\Windows</Filter>
+    </ClInclude>
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h">
       <Filter>Platform\Windows</Filter>
     </ClInclude>
@@ -52,6 +55,9 @@
     <ClInclude Include="src\ROUGE2\ImGui\ImGuiLayer.h">
       <Filter>ROUGE2\ImGui</Filter>
     </ClInclude>
+    <ClInclude Include="src\ROUGE2\Input.h">
+      <Filter>ROUGE2</Filter>
+    </ClInclude>
     <ClInclude Include="src\ROUGE2\Layer.h">
       <Filter>ROUGE2</Filter>
     </ClInclude>
@@ -69,6 +75,9 @@
   <ItemGroup>
     <ClCompile Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.cpp">
       <Filter>Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\Windows\WindowsInput.cpp">
+      <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp">
       <Filter>Platform\Windows</Filter>

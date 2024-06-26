@@ -6,9 +6,6 @@
 
 
 namespace ROUGE2 {
-	/*
-		temporary blocking / no buffer -> future buffer events /shrug/
-	*/
 	enum class EventType {
 		None = 0,
 		WindowClose, WindowResize, WindowFocus, WindowLostFocus, WindowMoved,

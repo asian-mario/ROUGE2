@@ -27,6 +27,7 @@ project "ROUGE2"
 	location "ROUGE2"
 	kind "SharedLib" --.dll
 	language "C++"
+	staticruntime "off"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -73,17 +74,17 @@ project "ROUGE2"
 		
 	filter "configurations:Debug"
 		defines "R2_DEBUG"
-		buildoptions "/MDd"
+		runtime "Debug"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "R2_RELEASE"
-		buildoptions "/MD"
+		runtime "Release"
 		optimize "On"
 
 	filter "configurations:Debug"
 		defines "R2_DIST"
-		buildoptions "/MD"
+		runtime "Release"
 		optimize "On"
 
 project "Sandbox"
@@ -91,6 +92,7 @@ project "Sandbox"
 	kind "ConsoleApp"
 
 	language "C++"
+	staticruntime "off"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")

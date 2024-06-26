@@ -88,7 +88,6 @@
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalOptions>/MDd /MD %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -116,7 +115,6 @@
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalOptions>/MD %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -152,6 +150,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.h" />
+    <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\ROUGE2.h" />
     <ClInclude Include="src\ROUGE2\Application.h" />
@@ -162,6 +161,7 @@
     <ClInclude Include="src\ROUGE2\Events\KeyEvent.h" />
     <ClInclude Include="src\ROUGE2\Events\MouseEvent.h" />
     <ClInclude Include="src\ROUGE2\ImGui\ImGuiLayer.h" />
+    <ClInclude Include="src\ROUGE2\Input.h" />
     <ClInclude Include="src\ROUGE2\Layer.h" />
     <ClInclude Include="src\ROUGE2\LayerStack.h" />
     <ClInclude Include="src\ROUGE2\Log.h" />
@@ -170,6 +170,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.cpp" />
+    <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\ROUGE2\Application.cpp" />
     <ClCompile Include="src\ROUGE2\ImGui\ImGuiLayer.cpp" />
