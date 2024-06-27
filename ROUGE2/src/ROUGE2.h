@@ -6,6 +6,11 @@
 #include "ROUGE2/Application.h"
 #include "ROUGE2/Layer.h"
 #include "ROUGE2/Log.h"
+
+#include "ROUGE2/Input.h"
+#include "ROUGE2/MouseButtonCodes.h"
+#include "ROUGE2/KeyCodes.h"
+
 #include "ROUGE2/ImGui/ImGuiLayer.h"
 
 //--ENTRY POINT--------------

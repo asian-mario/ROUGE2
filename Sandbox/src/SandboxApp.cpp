@@ -8,11 +8,14 @@ public:
 	}
 
 	void OnUpdate() override{
-		R2_INFO("ExLayer::Update");
+
+		if (ROUGE2::Input::IsKeyPressed(R2_KEY_SPACE)) {
+			R2_INFO("SPACE KEY PRESSED");
+		}
 	}
 
 	void OnEvent(ROUGE2::Event& event) override {
-		R2_TRACE("{0}", event);
+		//R2_TRACE("{0}", event);
 	}
 };
 

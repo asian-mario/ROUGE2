@@ -71,6 +71,8 @@
       <Filter>ROUGE2</Filter>
     </ClInclude>
     <ClInclude Include="src\r2pch.h" />
+    <ClInclude Include="src\ROUGE2\KeyCodes.h" />
+    <ClInclude Include="src\ROUGE2\MouseButtonCodes.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.cpp">
