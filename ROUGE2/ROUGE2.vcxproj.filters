@@ -1382,5 +1382,6 @@
     <ClCompile Include="src\r2pch.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\ROUGE2\ImGui\ImGuiBuild.cpp" />
   </ItemGroup>
 </Project>
