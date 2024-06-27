@@ -13,12 +13,12 @@ public:
 			R2_INFO("SPACE KEY PRESSED");
 		}
 	}
-	/*virtual void OnImGuiRender() override
+	virtual void OnImGuiRender() override
 	{
 		ImGui::Begin("Test");
 		ImGui::Text("Hello World");
 		ImGui::End();
-	}*/
+	}
 
 	void OnEvent(ROUGE2::Event& event) override {
 		//R2_TRACE("{0}", event);

@@ -2,33 +2,32 @@ workspace "ROUGE2"
 	architecture "x64"
 	startproject "Sandbox"
 
-	configurations{
-		"Debug", 
+	configurations
+	{
+		"Debug",
 		"Release",
 		"Dist"
 	}
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+-- Include directories relative to root folder (solution directory)
 IncludeDir = {}
 IncludeDir["GLFW"] = "ROUGE2/vendor/GLFW/include"
 IncludeDir["Glad"] = "ROUGE2/vendor/Glad/include"
 IncludeDir["ImGui"] = "ROUGE2/vendor/imgui"
 IncludeDir["glm"] = "ROUGE2/vendor/glm"
 
-
-
 include "ROUGE2/vendor/GLFW"
 include "ROUGE2/vendor/Glad"
 include "ROUGE2/vendor/imgui"
 
-
-
 project "ROUGE2"
 	location "ROUGE2"
-	kind "SharedLib" --.dll
+	kind "SharedLib"
 	language "C++"
-	staticruntime "off"
+	cppdialect "C++17"
+	staticruntime "on"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -36,108 +35,110 @@ project "ROUGE2"
 	pchheader "r2pch.h"
 	pchsource "ROUGE2/src/r2pch.cpp"
 
-	files{
+	files
+	{
 		"%{prj.name}/src/**.h",
 		"%{prj.name}/src/**.cpp",
 		"%{prj.name}/vendor/glm/glm/**.hpp",
 		"%{prj.name}/vendor/glm/glm/**.inl",
 	}
 
-	includedirs{
+	defines
+	{
+		"_CRT_SECURE_NO_WARNINGS"
+	}
+
+	includedirs
+	{
 		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
 		"%{IncludeDir.glm}"
-
 	}
 
-	links{
+	links 
+	{ 
 		"GLFW",
 		"Glad",
 		"ImGui",
-		"opengl32.lib",
-		"dwmapi.lib"
+		"opengl32.lib"
 	}
 
 	filter "system:windows"
-		cppdialect "C++17"
-		staticruntime "On"
 		systemversion "latest"
 
-		defines{
+		defines
+		{
 			"R2_PLATFORM_WINDOWS",
 			"R2_BUILD_DLL",
 			"GLFW_INCLUDE_NONE"
 		}
 
-		postbuildcommands{
-			("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/Sandbox/\"")
-		}
-		
 	filter "configurations:Debug"
 		defines "R2_DEBUG"
 		runtime "Debug"
-		symbols "On"
+		symbols "on"
 
 	filter "configurations:Release"
 		defines "R2_RELEASE"
 		runtime "Release"
-		optimize "On"
+		optimize "on"
 
-	filter "configurations:Debug"
+	filter "configurations:Dist"
 		defines "R2_DIST"
 		runtime "Release"
-		optimize "On"
+		optimize "on"
 
 project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
-
 	language "C++"
-	staticruntime "off"
+	cppdialect "C++17"
+	staticruntime "on"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
-	files{
+	files
+	{
 		"%{prj.name}/src/**.h",
-		"%{prj.name}/src/**.cpp",
+		"%{prj.name}/src/**.cpp"
 	}
 
-	includedirs{
+	includedirs
+	{
 		"ROUGE2/vendor/spdlog/include",
 		"ROUGE2/src",
 		"ROUGE2/vendor",
 		"%{IncludeDir.glm}"
 	}
 
-	links{
+	links
+	{
 		"ROUGE2"
 	}
 
 	filter "system:windows"
-		cppdialect "C++17"
-		staticruntime "On"
 		systemversion "latest"
 
-		defines{
+		defines
+		{
 			"R2_PLATFORM_WINDOWS"
 		}
-
 
 	filter "configurations:Debug"
 		defines "R2_DEBUG"
 		runtime "Debug"
-		symbols "On"
+		symbols "on"
 
 	filter "configurations:Release"
 		defines "R2_RELEASE"
 		runtime "Release"
-		optimize "On"
+		optimize "on"
 
-	filter "configurations:Debug"
+	filter "configurations:Dist"
 		defines "R2_DIST"
 		runtime "Release"
-		optimize "On"
+		optimize "on"
