@@ -7,3 +7,6 @@
 [submodule "ROUGE2/vendor/imgui"]
 	path = ROUGE2/vendor/imgui
 	url = https://github.com/ocornut/imgui
+[submodule "ROUGE2/ROUGE2/vendor/glm"]
+	path = ROUGE2/ROUGE2/vendor/glm
+	url = https://github.com/g-truc/glm

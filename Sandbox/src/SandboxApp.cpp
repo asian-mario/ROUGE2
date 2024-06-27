@@ -1,6 +1,5 @@
 #include <ROUGE2.h>
 
-
 class ExLayer : public ROUGE2::Layer {
 public:
 	ExLayer() : Layer("Example") 
@@ -16,6 +15,9 @@ public:
 
 	void OnEvent(ROUGE2::Event& event) override {
 		//R2_TRACE("{0}", event);
+		/*
+			technically you can convert char -> ascii to use as events b/ limits function keys
+		*/
 	}
 };
 
