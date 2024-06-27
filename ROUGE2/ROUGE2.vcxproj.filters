@@ -1367,6 +1367,9 @@
     <ClCompile Include="src\ROUGE2\Application.cpp">
       <Filter>src\ROUGE2</Filter>
     </ClCompile>
+    <ClCompile Include="src\ROUGE2\ImGui\ImGuiBuild.cpp">
+      <Filter>src\ROUGE2\ImGui</Filter>
+    </ClCompile>
     <ClCompile Include="src\ROUGE2\ImGui\ImGuiLayer.cpp">
       <Filter>src\ROUGE2\ImGui</Filter>
     </ClCompile>
@@ -1382,6 +1385,5 @@
     <ClCompile Include="src\r2pch.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\ROUGE2\ImGui\ImGuiBuild.cpp" />
   </ItemGroup>
 </Project>
