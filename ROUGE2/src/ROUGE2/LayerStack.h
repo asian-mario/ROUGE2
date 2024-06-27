@@ -23,6 +23,6 @@ namespace ROUGE2 {
 
 	private:
 		std::vector<Layer*> m_Layers; //stack
-		std::vector<Layer*>::iterator m_LayerInsert;
+		unsigned int m_LayerInsertIndex = 0;
 	};
 }

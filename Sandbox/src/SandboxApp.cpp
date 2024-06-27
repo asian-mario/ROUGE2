@@ -1,4 +1,5 @@
 #include <ROUGE2.h>
+#include "imgui/imgui.h"
 
 class ExLayer : public ROUGE2::Layer {
 public:
@@ -12,6 +13,12 @@ public:
 			R2_INFO("SPACE KEY PRESSED");
 		}
 	}
+	/*virtual void OnImGuiRender() override
+	{
+		ImGui::Begin("Test");
+		ImGui::Text("Hello World");
+		ImGui::End();
+	}*/
 
 	void OnEvent(ROUGE2::Event& event) override {
 		//R2_TRACE("{0}", event);
@@ -25,7 +32,6 @@ class Sandbox : public ROUGE2::Application {
 public:
 	Sandbox() {
 		PushLayer(new ExLayer());
-		PushOverlay(new ROUGE2::ImGuiLayer());
 	}
 
 	~Sandbox() {

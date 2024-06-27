@@ -6,6 +6,8 @@
 #include "Window.h"
 #include "Events/ApplicationEvent.h"
 
+#include "ImGui/ImGuiLayer.h"
+
 namespace ROUGE2 {
 
 	class ROUGE2_API Application
@@ -26,6 +28,7 @@ namespace ROUGE2 {
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);
 		std::unique_ptr<Window> m_Window;
+		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 
 		LayerStack m_LayerStack;

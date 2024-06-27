@@ -109,6 +109,7 @@ project "Sandbox"
 	includedirs{
 		"ROUGE2/vendor/spdlog/include",
 		"ROUGE2/src",
+		"ROUGE2/vendor",
 		"%{IncludeDir.glm}"
 	}
 
