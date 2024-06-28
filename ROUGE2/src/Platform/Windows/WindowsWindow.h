@@ -1,6 +1,6 @@
 #pragma once
 #include "ROUGE2/Window.h"
-
+#include "ROUGE2/Renderer/GraphicsContext.h"
 #include <GLFW/glfw3.h>
 
 
@@ -29,6 +29,7 @@ namespace ROUGE2 {
 
 	private:
 		GLFWwindow* m_Window;
+		GraphicsContext* m_Context;
 
 		struct WindowData {
 			std::string Title;

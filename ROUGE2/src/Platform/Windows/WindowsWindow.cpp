@@ -4,6 +4,7 @@
 #include "ROUGE2/Events/ApplicationEvent.h"
 #include "ROUGE2/Events/KeyEvent.h"
 #include "ROUGE2/Events/MouseEvent.h"
+#include "Platform/OpenGL/OpenGLContext.h"
 
 #include <glad/glad.h>
 
@@ -33,6 +34,7 @@ namespace ROUGE2 {
 
 		R2_CORE_LOG_INFO("Creating window {0} ({1}, {2})", props.Title, props.Width, props.Height);
 
+
 		if (!s_GLFWInitialized)
 		{
 			int success = glfwInit();
@@ -43,9 +45,10 @@ namespace ROUGE2 {
 		}
 
 		m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
-		glfwMakeContextCurrent(m_Window);
-		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-		R2_CORE_ASSERT(status, "Failed to initialize Glad")
+
+		m_Context = new OpenGLContext(m_Window);
+		m_Context->Init();
+
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVSync(false);
 
@@ -67,7 +70,7 @@ namespace ROUGE2 {
 		});
 
 		
-		glfwSetKeyCallback(m_Window, [](GLFWwindow* window, int key, int scancode, int action, int mods) {
+		glfwSetKeyCallback(m_Window, [](GLFWwindow* winsdow, int key, int scancode, int action, int mods) {
 			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 
 			switch (action) {
@@ -137,7 +140,7 @@ namespace ROUGE2 {
 	void WindowsWindow::OnUpdate()
 	{
 		glfwPollEvents();
-		glfwSwapBuffers(m_Window);
+		m_Context->SwapBuffers();
 	}
 
 	void WindowsWindow::SetVSync(bool enabled)

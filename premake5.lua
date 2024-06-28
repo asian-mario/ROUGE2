@@ -76,17 +76,25 @@ project "ROUGE2"
 			"GLFW_INCLUDE_NONE"
 		}
 
+		postbuildcommands
+		{
+			("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/Sandbox/\"")
+		}
+
 	filter "configurations:Debug"
+		defines { "DEBUG", "IMGUI_API=__declspec(dllexport)" }
 		defines "R2_DEBUG"
 		runtime "Debug"
 		symbols "on"
 
 	filter "configurations:Release"
+		defines { "NDEBUG", "IMGUI_API=__declspec(dllexport)" }
 		defines "R2_RELEASE"
 		runtime "Release"
 		optimize "on"
 
 	filter "configurations:Dist"
+		defines { "NDEBUG", "IMGUI_API=__declspec(dllexport)" }
 		defines "R2_DIST"
 		runtime "Release"
 		optimize "on"
@@ -129,16 +137,19 @@ project "Sandbox"
 		}
 
 	filter "configurations:Debug"
+		defines { "DEBUG", "IMGUI_API=__declspec(dllimport)" }
 		defines "R2_DEBUG"
 		runtime "Debug"
 		symbols "on"
 
 	filter "configurations:Release"
+		defines { "NDEBUG", "IMGUI_API=__declspec(dllimport)" }
 		defines "R2_RELEASE"
 		runtime "Release"
 		optimize "on"
 
 	filter "configurations:Dist"
+		defines { "NDEBUG", "IMGUI_API=__declspec(dllimport)" }
 		defines "R2_DIST"
 		runtime "Release"
 		optimize "on"

@@ -17,6 +17,7 @@ public:
 	{
 		ImGui::Begin("Test");
 		ImGui::Text("Hello World");
+		ImGui::ShowAboutWindow();
 		ImGui::End();
 	}
 
