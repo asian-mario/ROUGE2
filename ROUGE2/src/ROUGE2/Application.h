@@ -9,6 +9,7 @@
 #include "ImGui/ImGuiLayer.h"
 
 #include "ROUGE2/Renderer/Shader.h" //temp link
+#include "ROUGE2/Renderer/Buffer.h"
 
 
 namespace ROUGE2 {
@@ -36,9 +37,11 @@ namespace ROUGE2 {
 
 		LayerStack m_LayerStack;
 
-		unsigned int m_VertexArray, m_VertexBuffer, m_IndexBuffer;
+		unsigned int m_VertexArray, m_IndexBuffer;
 
 		std::unique_ptr<Shader> m_Shader;
+		std::unique_ptr<VertexBuffer> m_VertexBuffer;
+
 	private:
 		static Application* s_Instance;
 	};
