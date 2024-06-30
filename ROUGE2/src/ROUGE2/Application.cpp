@@ -70,7 +70,7 @@ namespace ROUGE2 {
 			layout(location = 0) out vec4 col;
 			in vec3 v_Position;
 			void main(){
-				col = vec4(v_Position * 0.5 + 0.5, 1.0);
+				col = vec4(v_Position + 0.5, 1.0);
 				
 			}			
 
