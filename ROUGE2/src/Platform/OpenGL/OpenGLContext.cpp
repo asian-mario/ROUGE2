@@ -10,7 +10,7 @@ namespace ROUGE2 {
 	OpenGLContext::OpenGLContext(GLFWwindow* windowHandle)
 		: m_WindowHandle(windowHandle)
 	{
-		R2_CORE_ASSERT(windowHandle, "Window handle is null!")
+		R2_CORE_ASSERT(windowHandle, "Window handle is null")
 	}
 
 	void OpenGLContext::Init(){
@@ -20,6 +20,7 @@ namespace ROUGE2 {
 	}
 
 	void OpenGLContext::SwapBuffers(){
+
 		glfwSwapBuffers(m_WindowHandle);
 	}
 
