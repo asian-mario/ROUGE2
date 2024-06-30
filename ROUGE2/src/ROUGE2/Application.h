@@ -8,6 +8,9 @@
 
 #include "ImGui/ImGuiLayer.h"
 
+#include "ROUGE2/Renderer/Shader.h" //temp link
+
+
 namespace ROUGE2 {
 
 	class ROUGE2_API Application
@@ -34,6 +37,8 @@ namespace ROUGE2 {
 		LayerStack m_LayerStack;
 
 		unsigned int m_VertexArray, m_VertexBuffer, m_IndexBuffer;
+
+		std::unique_ptr<Shader> m_Shader;
 	private:
 		static Application* s_Instance;
 	};

@@ -168,6 +168,7 @@
     <ClInclude Include="src\ROUGE2\Log.h" />
     <ClInclude Include="src\ROUGE2\MouseButtonCodes.h" />
     <ClInclude Include="src\ROUGE2\Renderer\GraphicsContext.h" />
+    <ClInclude Include="src\ROUGE2\Renderer\Shader.h" />
     <ClInclude Include="src\ROUGE2\Window.h" />
     <ClInclude Include="src\r2pch.h" />
     <ClInclude Include="vendor\glm\glm\common.hpp" />
@@ -600,6 +601,7 @@
     <ClCompile Include="src\r2pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="src\ROUGE2\Renderer\Shader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="vendor\GLFW\GLFW.vcxproj">

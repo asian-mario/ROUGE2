@@ -17,6 +17,11 @@ namespace ROUGE2 {
 		glfwMakeContextCurrent(m_WindowHandle);
 		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 		R2_CORE_ASSERT(status, "Failed to initialize Glad!");
+
+		R2_CORE_LOG_INFO("OpenGL Info:");
+		R2_CORE_LOG_INFO("  Vendor: {0}", (const char*)glGetString(GL_VENDOR));
+		R2_CORE_LOG_INFO("  Renderer: {0}", (const char*) glGetString(GL_RENDERER));
+		R2_CORE_LOG_INFO("  Version: {0}", (const char*) glGetString(GL_VERSION));
 	}
 
 	void OpenGLContext::SwapBuffers(){
