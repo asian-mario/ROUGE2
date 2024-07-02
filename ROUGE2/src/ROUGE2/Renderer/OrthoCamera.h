@@ -4,9 +4,9 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 namespace ROUGE2 {
-	class OrtoCamera {
+	class OrthoCamera {
 	public:
-		OrtoCamera(float left, float right, float bottom, float top);
+		OrthoCamera(float left, float right, float bottom, float top);
 
 		const glm::vec3& GetPosition() const { return m_Position; }
 		void SetPosition(const glm::vec3 position) {

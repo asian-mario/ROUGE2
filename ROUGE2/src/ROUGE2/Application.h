@@ -12,7 +12,7 @@
 #include "ROUGE2/Renderer/Buffer.h"
 #include "ROUGE2/Renderer/VertexArray.h"
 
-#include "ROUGE2/Renderer/OrtoCamera.h"
+#include "ROUGE2/Renderer/OrthoCamera.h"
 
 namespace ROUGE2 {
 
@@ -45,7 +45,7 @@ namespace ROUGE2 {
 		std::shared_ptr<Shader> m_Shader2;
 		std::shared_ptr<VertexArray> m_SquareVA;
 
-		OrtoCamera m_Camera;
+		OrthoCamera m_Camera;
 	private:
 		static Application* s_Instance;
 	};
