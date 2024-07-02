@@ -13,7 +13,7 @@ namespace ROUGE2 {
 
 		WindowProps(const std::string& title = "ROUGE2 Engine",
 			unsigned int width = 1280,
-			unsigned int height = 860)
+			unsigned int height = 720)
 			: Title(title), Width(width), Height(height)
 		{
 		}
