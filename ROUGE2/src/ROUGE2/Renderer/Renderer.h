@@ -1,17 +1,15 @@
 #pragma once
+#include "RenderCommand.h"
 
 namespace ROUGE2 {
-	enum class RendererAPI {
-		None = 0, OpenGL = 1
-	};
-	/*
-		future support: Vulkan, DX11/12
-	*/
 
 	class Renderer {
 	public:
-		inline static RendererAPI GetAPI() { return s_RendererAPI; }
-	private:
-		static RendererAPI s_RendererAPI;
+		static void BeginScene(); // take scene params later
+		static void EndScene();
+
+		static void Submit(const std::shared_ptr<VertexArray>& vertexArray);
+
+		inline static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
 	};
 }

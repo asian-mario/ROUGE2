@@ -1,8 +1,8 @@
 #include "r2pch.h"
 #include "Application.h"
 #include "ROUGE2/Log.h"
+#include "ROUGE2/Renderer/Renderer.h"
 
-#include <glad/glad.h>
 #include "Input.h"
 
 
@@ -38,11 +38,13 @@ namespace ROUGE2 {
 
 		std::shared_ptr<VertexBuffer> vertexBuffer;
 		vertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
+
 		BufferLayout layout = {
 			{ ShaderDataType::Vec3, "a_Position" },
 			{ ShaderDataType::Vec4, "a_Color" }
 		};
-		vertexBuffer->SetLayout(layout);
+
+		vertexBuffer->SetLayout(layout); //always set layout before adding vertex buffer to vertarray
 		m_VertexArray->AddVertexBuffer(vertexBuffer);
 
 		uint32_t indices[3] = { 0, 1, 2 };
@@ -110,7 +112,7 @@ namespace ROUGE2 {
 
 		m_Shader.reset(new Shader(vertexSrc, fragmentSrc));
 
-		std::string blueShaderVertexSrc = R"(
+		std::string Shader2VertexSrc = R"(
 			#version 330 core
 			
 			layout(location = 0) in vec3 a_Position;
@@ -122,7 +124,7 @@ namespace ROUGE2 {
 			}
 		)";
 
-		std::string blueShaderFragmentSrc = R"(
+		std::string Shader2FragmentSrc = R"(
 			#version 330 core
 			
 			layout(location = 0) out vec4 color;
@@ -133,7 +135,7 @@ namespace ROUGE2 {
 			}
 		)";
 
-		m_BlueShader.reset(new Shader(blueShaderVertexSrc, blueShaderFragmentSrc));		
+		m_Shader2.reset(new Shader(Shader2VertexSrc, Shader2FragmentSrc));
 	}
 
 
@@ -170,16 +172,21 @@ namespace ROUGE2 {
 	{
 		while (m_Running)
 		{
-			glClearColor(0.1f, 0.1f, 0.1f, 1);
-			glClear(GL_COLOR_BUFFER_BIT);
+			
+			RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
+			RenderCommand::Clear();
 
-			m_BlueShader->Bind();
-			m_SquareVA->Bind();
-			glDrawElements(GL_TRIANGLES, m_SquareVA->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+			Renderer::BeginScene();
+
+
+			m_Shader2->Bind();
+			Renderer::Submit(m_SquareVA);
 
 			m_Shader->Bind();
-			m_VertexArray->Bind();
-			glDrawElements(GL_TRIANGLES, m_VertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+			Renderer::Submit(m_VertexArray);
+
+
+			Renderer::EndScene();
 
 			for (Layer* layer : m_LayerStack) {
 				layer->OnUpdate();

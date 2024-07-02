@@ -8,9 +8,9 @@
 namespace ROUGE2 {
 	VertexBuffer* VertexBuffer::Create(float* vertices, uint32_t size){
 		switch (Renderer::GetAPI()) {
-		case RendererAPI::None: 
+		case RendererAPI::API::None: 
 			R2_CORE_ASSERT(false, "RendererAPI::None is currently not supported or there is no API!");
-		case RendererAPI::OpenGL:
+		case RendererAPI::API::OpenGL:
 			return new OpenGLVertexBuffer(vertices, size);
 		}
 
@@ -20,9 +20,9 @@ namespace ROUGE2 {
 
 	IndexBuffer* IndexBuffer::Create(uint32_t* indices, uint32_t size){
 		switch (Renderer::GetAPI()) {
-		case RendererAPI::None:
+		case RendererAPI::API::None:
 			R2_CORE_ASSERT(false, "RendererAPI::None is currently not supported or there is no API!");
-		case RendererAPI::OpenGL:
+		case RendererAPI::API::OpenGL:
 			return new OpenGLIndexBuffer(indices, size);
 		}
 
