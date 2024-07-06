@@ -3,7 +3,7 @@
 
 class ExLayer : public ROUGE2::Layer {
 public:
-	ExLayer() : Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f)
+	ExLayer() : Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f), m_CamPos(0.0f, 0.0f, 0.0f)
 	{
 		m_VertexArray.reset(ROUGE2::VertexArray::Create());
 
@@ -33,6 +33,7 @@ public:
 		std::shared_ptr<ROUGE2::IndexBuffer> indexBuffer;
 		indexBuffer.reset(ROUGE2::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
 		m_VertexArray->SetIndexBuffer(indexBuffer);
+
 
 		uint32_t index = 0;
 		m_SquareVA.reset(ROUGE2::VertexArray::Create());
@@ -124,10 +125,31 @@ public:
 	}
 
 	void OnUpdate() override{
+		if (ROUGE2::Input::IsKeyPressed(R2_KEY_LEFT)) {
+			m_CamPos.x -= m_CamMoveSpeed;
+		}
+		else if (ROUGE2::Input::IsKeyPressed(R2_KEY_RIGHT)) {
+			m_CamPos.x += m_CamMoveSpeed;
+		}
+		if (ROUGE2::Input::IsKeyPressed(R2_KEY_UP)) {
+			m_CamPos.y += m_CamMoveSpeed;
+		}
+		else if (ROUGE2::Input::IsKeyPressed(R2_KEY_DOWN)) {
+			m_CamPos.y -= m_CamMoveSpeed;
+		}
+
+		if (ROUGE2::Input::IsKeyPressed(R2_KEY_A)) {
+			m_CamRot += m_CamRotSpeed;
+		}
+		if (ROUGE2::Input::IsKeyPressed(R2_KEY_D)) {
+			m_CamRot -= m_CamRotSpeed;
+		}
+
 		ROUGE2::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 		ROUGE2::RenderCommand::Clear();
 
-
+		m_Camera.SetPosition(m_CamPos);
+		m_Camera.SetRotation(m_CamRot);
 
 		ROUGE2::Renderer::BeginScene(m_Camera);
 
@@ -145,6 +167,7 @@ public:
 
 	}
 
+
 private:
 	std::shared_ptr<ROUGE2::Shader> m_Shader;
 	std::shared_ptr<ROUGE2::VertexArray> m_VertexArray;
@@ -153,6 +176,10 @@ private:
 	std::shared_ptr<ROUGE2::VertexArray> m_SquareVA;
 
 	ROUGE2::OrthoCamera m_Camera;
+	glm::vec3 m_CamPos;
+	float m_CamRot = 0.0f;
+	float m_CamMoveSpeed = 0.1f;
+	float m_CamRotSpeed = 1.0f;
 };
 
 class Sandbox : public ROUGE2::Application {

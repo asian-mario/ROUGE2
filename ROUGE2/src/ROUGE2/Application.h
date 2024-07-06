@@ -46,4 +46,3 @@ namespace ROUGE2 {
 	//def. in client
 	Application* CreateApplication();
 }
-

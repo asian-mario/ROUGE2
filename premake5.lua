@@ -22,29 +22,6 @@ include "ROUGE2/vendor/GLFW"
 include "ROUGE2/vendor/Glad"
 include "ROUGE2/vendor/imgui"
 
-workspace "ROUGE2"
-    architecture "x64"
-    startproject "Sandbox"
-
-    configurations
-    {
-        "Debug",
-        "Release",
-        "Dist"
-    }
-
-outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
-
--- Include directories relative to root folder (solution directory)
-IncludeDir = {}
-IncludeDir["GLFW"] = "ROUGE2/vendor/GLFW/include"
-IncludeDir["Glad"] = "ROUGE2/vendor/Glad/include"
-IncludeDir["ImGui"] = "ROUGE2/vendor/imgui"
-IncludeDir["glm"] = "ROUGE2/vendor/glm"
-
-include "ROUGE2/vendor/GLFW"
-include "ROUGE2/vendor/Glad"
-include "ROUGE2/vendor/imgui"
 
 project "ROUGE2"
     location "ROUGE2"
@@ -91,7 +68,7 @@ project "ROUGE2"
     }
 
     filter "system:windows"
-        systemversion "latest" -- Use a different SDK version if possible
+        systemversion "10.0.19041.0" -- Use a different SDK version if possible
 
         defines
         {
