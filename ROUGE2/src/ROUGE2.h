@@ -13,6 +13,16 @@
 
 #include "ROUGE2/ImGui/ImGuiLayer.h"
 
+#include "ROUGE2/Renderer/Renderer.h"
+#include "ROUGE2/Renderer/RenderCommand.h"
+
+#include "ROUGE2/Renderer/Buffer.h"
+#include "ROUGE2/Renderer/Shader.h"
+#include "ROUGE2/Renderer/VertexArray.h"
+
+#include "ROUGE2/Renderer/OrthoCamera.h"
+
+
 //--ENTRY POINT--------------
 #include "ROUGE2/EntryPoint.h"
 //--ENTRY POINT--------------
