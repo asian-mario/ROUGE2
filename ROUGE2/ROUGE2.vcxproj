@@ -171,6 +171,7 @@
     <ClInclude Include="src\ROUGE2\Renderer\VertexArray.h" />
     <ClInclude Include="src\ROUGE2\Window.h" />
     <ClInclude Include="src\r2pch.h" />
+    <ClInclude Include="src\ROUGE2\Core\Timestep.h" />
     <ClInclude Include="vendor\glm\glm\common.hpp" />
     <ClInclude Include="vendor\glm\glm\detail\_features.hpp" />
     <ClInclude Include="vendor\glm\glm\detail\_fixes.hpp" />

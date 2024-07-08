@@ -6,13 +6,9 @@
 #include "Window.h"
 #include "Events/ApplicationEvent.h"
 
+#include "ROUGE2/Core/Timestep.h"
+
 #include "ImGui/ImGuiLayer.h"
-
-#include "ROUGE2/Renderer/Shader.h" //temp link
-#include "ROUGE2/Renderer/Buffer.h"
-#include "ROUGE2/Renderer/VertexArray.h"
-
-#include "ROUGE2/Renderer/OrthoCamera.h"
 
 namespace ROUGE2 {
 
@@ -33,11 +29,15 @@ namespace ROUGE2 {
 		inline static  Application& Get() { return *s_Instance; }
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);
+
+	private:
 		std::unique_ptr<Window> m_Window;
 		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 
 		LayerStack m_LayerStack;
+		Timestep m_Timestep;
+		float m_LastFrameTime = 0.0f;
 
 	private:
 		static Application* s_Instance;

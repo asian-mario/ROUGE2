@@ -124,18 +124,20 @@ public:
 		m_Shader2.reset(new ROUGE2::Shader(Shader2VertexSrc, Shader2FragmentSrc));
 	}
 
-	void OnUpdate() override{
+	void OnUpdate(ROUGE2::Timestep ts) override{
+		R2_TRACE("Delta Time: {0} seconds o/ ({1} ms)", ts.GetSeconds(), ts.GetMilliseconds());
+
 		if (ROUGE2::Input::IsKeyPressed(R2_KEY_LEFT)) {
-			m_CamPos.x -= m_CamMoveSpeed;
+			m_CamPos.x -= m_CamMoveSpeed * ts;
 		}
 		else if (ROUGE2::Input::IsKeyPressed(R2_KEY_RIGHT)) {
-			m_CamPos.x += m_CamMoveSpeed;
+			m_CamPos.x += m_CamMoveSpeed * ts;
 		}
 		if (ROUGE2::Input::IsKeyPressed(R2_KEY_UP)) {
-			m_CamPos.y += m_CamMoveSpeed;
+			m_CamPos.y += m_CamMoveSpeed * ts;
 		}
 		else if (ROUGE2::Input::IsKeyPressed(R2_KEY_DOWN)) {
-			m_CamPos.y -= m_CamMoveSpeed;
+			m_CamPos.y -= m_CamMoveSpeed * ts;
 		}
 
 		if (ROUGE2::Input::IsKeyPressed(R2_KEY_A)) {
@@ -178,8 +180,8 @@ private:
 	ROUGE2::OrthoCamera m_Camera;
 	glm::vec3 m_CamPos;
 	float m_CamRot = 0.0f;
-	float m_CamMoveSpeed = 0.1f;
-	float m_CamRotSpeed = 1.0f;
+	float m_CamMoveSpeed = 3.0f;
+	float m_CamRotSpeed = 180.0f;
 };
 
 class Sandbox : public ROUGE2::Application {

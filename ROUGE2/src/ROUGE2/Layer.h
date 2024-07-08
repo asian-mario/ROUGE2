@@ -3,6 +3,8 @@
 #include "ROUGE2/Core.h"
 #include "ROUGE2/Events/Event.h"
 
+#include "ROUGE2/Core/Timestep.h"
+
 namespace ROUGE2 {
 	class ROUGE2_API Layer { //subclass Layer class per layer
 	public:
@@ -11,7 +13,7 @@ namespace ROUGE2 {
 
 		virtual void OnAttach() {}
 		virtual void OnDetach() {}
-		virtual void OnUpdate() {}
+		virtual void OnUpdate(Timestep ts) {}
 		virtual void OnEvent(Event& event) {}
 		virtual void OnImGuiRender() {}
 
