@@ -3,7 +3,7 @@
 
 ![ROUGE2](./img/ROUGE.png)
 
-This is a 2D game engine currently under development. It leverages OpenGL for rendering, with plans to support other APIs in the future. The engine also utilizes GLFW for window and input management, ImGui for the user interface, and GLM for mathematical operations.
+This is a 2D game engine currently under development. It leverages OpenGL for rendering, with plans to support other APIs in the future. The engine also utilizes GLFW for window support and the backbone for inputs, ImGui for the user interface, and GLM for mathematical operations.
 
 ## Getting Started
 
