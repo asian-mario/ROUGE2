@@ -1,6 +1,6 @@
 #include <ROUGE2.h>
 #include "imgui/imgui.h"
-
+#include <glm/gtc/matrix_transform.hpp>
 class ExLayer : public ROUGE2::Layer {
 public:
 	ExLayer() : Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f), m_CamPos(0.0f, 0.0f, 0.0f)
@@ -40,10 +40,10 @@ public:
 
 
 		float squareVertices[3 * 4] = {
-			-0.75f, -0.75f, 0.0f,
-			 0.75f, -0.75f, 0.0f,
-			 0.75f,  0.75f, 0.0f,
-			-0.75f,  0.75f, 0.0f
+			-0.5f, -0.5f, 0.0f,
+			 0.5f, -0.5f, 0.0f,
+			 0.5f,  0.5f, 0.0f,
+			-0.5f,  0.5f, 0.0f
 		};
 
 		std::shared_ptr<ROUGE2::VertexBuffer> squareVB;
@@ -68,10 +68,12 @@ public:
 			out vec4 v_Color;
 			
 			uniform mat4 u_ViewProj;
+			uniform mat4 u_ModelMat;
+
 			void main(){
 				v_Position = a_Position;
 				v_Color = a_Color;
-				gl_Position = u_ViewProj * vec4(a_Position, 1.0);
+				gl_Position = u_ViewProj * u_ModelMat * vec4(a_Position, 1.0);
 				
 			}			
 
@@ -102,11 +104,13 @@ public:
 			layout(location = 0) in vec3 a_Position;
 			out vec3 v_Position;
 			uniform mat4 u_ViewProj;
+			uniform mat4 u_ModelMat;
+
 
 			void main()
 			{
 				v_Position = a_Position;
-				gl_Position = u_ViewProj * vec4(a_Position, 1.0);	
+				gl_Position = u_ViewProj * u_ModelMat * vec4(a_Position, 1.0);	
 			}
 		)";
 
@@ -127,6 +131,7 @@ public:
 	void OnUpdate(ROUGE2::Timestep ts) override{
 		R2_TRACE("Delta Time: {0} seconds o/ ({1} ms)", ts.GetSeconds(), ts.GetMilliseconds());
 
+		//------------------------------------------------------
 		if (ROUGE2::Input::IsKeyPressed(R2_KEY_LEFT)) {
 			m_CamPos.x -= m_CamMoveSpeed * ts;
 		}
@@ -140,13 +145,15 @@ public:
 			m_CamPos.y -= m_CamMoveSpeed * ts;
 		}
 
+
+		//------------------------------------------------------
 		if (ROUGE2::Input::IsKeyPressed(R2_KEY_A)) {
-			m_CamRot += m_CamRotSpeed;
+			m_CamRot -= m_CamRotSpeed * ts;
 		}
 		if (ROUGE2::Input::IsKeyPressed(R2_KEY_D)) {
-			m_CamRot -= m_CamRotSpeed;
+			m_CamRot += m_CamRotSpeed * ts;
 		}
-
+		//------------------------------------------------------
 		ROUGE2::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 		ROUGE2::RenderCommand::Clear();
 
@@ -155,7 +162,17 @@ public:
 
 		ROUGE2::Renderer::BeginScene(m_Camera);
 
-		ROUGE2::Renderer::Submit(m_Shader2, m_SquareVA);
+		glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
+		for (int y = 0; y < 20; y++)
+		{
+			for (int x = 0; x < 20; x++)
+			{
+				glm::vec3 pos(x * 0.11f, y * 0.11f, 0.0f);
+				glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
+				ROUGE2::Renderer::Submit(m_Shader2, m_SquareVA, transform);
+			}
+		}
+
 		ROUGE2::Renderer::Submit(m_Shader, m_VertexArray);
 
 		ROUGE2::Renderer::EndScene();
@@ -179,9 +196,11 @@ private:
 
 	ROUGE2::OrthoCamera m_Camera;
 	glm::vec3 m_CamPos;
+
 	float m_CamRot = 0.0f;
 	float m_CamMoveSpeed = 3.0f;
-	float m_CamRotSpeed = 180.0f;
+	float m_CamRotSpeed = 100.0f;
+
 };
 
 class Sandbox : public ROUGE2::Application {
