@@ -18,6 +18,7 @@ public:
 			as it operates on X, Z, Y basis.
 		*/
 
+		
 		std::shared_ptr<ROUGE2::VertexBuffer> vertexBuffer;
 		vertexBuffer.reset(ROUGE2::VertexBuffer::Create(vertices, sizeof(vertices)));
 
@@ -98,7 +99,7 @@ public:
 
 		m_Shader.reset(new ROUGE2::Shader(vertexSrc, fragmentSrc));
 
-		std::string Shader2VertexSrc = R"(
+		std::string FlatColVertexSrc = R"(
 			#version 330 core
 			
 			layout(location = 0) in vec3 a_Position;
@@ -114,18 +115,21 @@ public:
 			}
 		)";
 
-		std::string Shader2FragmentSrc = R"(
+		std::string FlatColFragmentSrc = R"(
 			#version 330 core
 			
 			layout(location = 0) out vec4 color;
 			in vec3 v_Position;
+		
+			uniform vec4 u_Color;
+
 			void main()
 			{
-				color = vec4(0.2, 0.2, 0.2, 1.0);
+				color = u_Color;
 			}
 		)";
 
-		m_Shader2.reset(new ROUGE2::Shader(Shader2VertexSrc, Shader2FragmentSrc));
+		m_Shader2.reset(new ROUGE2::Shader(FlatColVertexSrc, FlatColFragmentSrc));
 	}
 
 	void OnUpdate(ROUGE2::Timestep ts) override{
@@ -133,16 +137,16 @@ public:
 
 		//------------------------------------------------------
 		if (ROUGE2::Input::IsKeyPressed(R2_KEY_LEFT)) {
-			m_CamPos.x -= m_CamMoveSpeed * ts;
-		}
-		else if (ROUGE2::Input::IsKeyPressed(R2_KEY_RIGHT)) {
 			m_CamPos.x += m_CamMoveSpeed * ts;
 		}
+		else if (ROUGE2::Input::IsKeyPressed(R2_KEY_RIGHT)) {
+			m_CamPos.x -= m_CamMoveSpeed * ts;
+		}
 		if (ROUGE2::Input::IsKeyPressed(R2_KEY_UP)) {
-			m_CamPos.y += m_CamMoveSpeed * ts;
+			m_CamPos.y -= m_CamMoveSpeed * ts;
 		}
 		else if (ROUGE2::Input::IsKeyPressed(R2_KEY_DOWN)) {
-			m_CamPos.y -= m_CamMoveSpeed * ts;
+			m_CamPos.y += m_CamMoveSpeed * ts;
 		}
 
 
@@ -163,12 +167,22 @@ public:
 		ROUGE2::Renderer::BeginScene(m_Camera);
 
 		glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
+
+		glm::vec4 redColor(0.8f, 0.2f, 0.3f, 1.0f);
+		glm::vec4 blueColor(0.2f, 0.3f, 0.8f, 1.0f);
+
 		for (int y = 0; y < 20; y++)
 		{
 			for (int x = 0; x < 20; x++)
 			{
 				glm::vec3 pos(x * 0.11f, y * 0.11f, 0.0f);
 				glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
+				if (x % 2 == 0) {
+					m_Shader2->UploadUniformFloat4("u_Color", redColor);
+				}
+				else {
+					m_Shader2->UploadUniformFloat4("u_Color", blueColor);
+				}
 				ROUGE2::Renderer::Submit(m_Shader2, m_SquareVA, transform);
 			}
 		}

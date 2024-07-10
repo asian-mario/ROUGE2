@@ -117,6 +117,11 @@ namespace ROUGE2 {
 	void Shader::Unbind() const{
 		glUseProgram(0);
 	}
+	void Shader::UploadUniformFloat4(const std::string name, const glm::vec4& val){
+		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
+		glUniform4f(location, val.x, val.y, val.z, val.w);
+	}
+
 	void Shader::UploadUniformMat4(const std::string name, const glm::mat4& matrix){
 		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
 		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
