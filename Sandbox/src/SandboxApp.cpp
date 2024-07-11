@@ -1,6 +1,8 @@
 #include <ROUGE2.h>
+#include "Platform/OpenGL/OpenGLShader.h"
 #include "imgui/imgui.h"
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 class ExLayer : public ROUGE2::Layer {
 public:
 	ExLayer() : Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f), m_CamPos(0.0f, 0.0f, 0.0f)
@@ -97,7 +99,7 @@ public:
 
 		)";
 
-		m_Shader.reset(new ROUGE2::Shader(vertexSrc, fragmentSrc));
+		m_Shader.reset(ROUGE2::Shader::Create(vertexSrc, fragmentSrc));
 
 		std::string FlatColVertexSrc = R"(
 			#version 330 core
@@ -129,7 +131,7 @@ public:
 			}
 		)";
 
-		m_Shader2.reset(new ROUGE2::Shader(FlatColVertexSrc, FlatColFragmentSrc));
+		m_Shader2.reset(ROUGE2::Shader::Create(FlatColVertexSrc, FlatColFragmentSrc));
 	}
 
 	void OnUpdate(ROUGE2::Timestep ts) override{
@@ -137,16 +139,16 @@ public:
 
 		//------------------------------------------------------
 		if (ROUGE2::Input::IsKeyPressed(R2_KEY_LEFT)) {
-			m_CamPos.x += m_CamMoveSpeed * ts;
-		}
-		else if (ROUGE2::Input::IsKeyPressed(R2_KEY_RIGHT)) {
 			m_CamPos.x -= m_CamMoveSpeed * ts;
 		}
+		else if (ROUGE2::Input::IsKeyPressed(R2_KEY_RIGHT)) {
+			m_CamPos.x += m_CamMoveSpeed * ts;
+		}
 		if (ROUGE2::Input::IsKeyPressed(R2_KEY_UP)) {
-			m_CamPos.y -= m_CamMoveSpeed * ts;
+			m_CamPos.y += m_CamMoveSpeed * ts;
 		}
 		else if (ROUGE2::Input::IsKeyPressed(R2_KEY_DOWN)) {
-			m_CamPos.y += m_CamMoveSpeed * ts;
+			m_CamPos.y -= m_CamMoveSpeed * ts;
 		}
 
 
@@ -168,8 +170,8 @@ public:
 
 		glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
-		glm::vec4 redColor(0.8f, 0.2f, 0.3f, 1.0f);
-		glm::vec4 blueColor(0.2f, 0.3f, 0.8f, 1.0f);
+		std::dynamic_pointer_cast<ROUGE2::OpenGLShader>(m_Shader2)->Bind();
+		std::dynamic_pointer_cast<ROUGE2::OpenGLShader>(m_Shader2)->UploadUniformFloat3("u_Color", m_SquareColor);
 
 		for (int y = 0; y < 20; y++)
 		{
@@ -177,12 +179,7 @@ public:
 			{
 				glm::vec3 pos(x * 0.11f, y * 0.11f, 0.0f);
 				glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
-				if (x % 2 == 0) {
-					m_Shader2->UploadUniformFloat4("u_Color", redColor);
-				}
-				else {
-					m_Shader2->UploadUniformFloat4("u_Color", blueColor);
-				}
+
 				ROUGE2::Renderer::Submit(m_Shader2, m_SquareVA, transform);
 			}
 		}
@@ -193,7 +190,9 @@ public:
 	}
 	virtual void OnImGuiRender() override
 	{
-
+		ImGui::Begin("Settings");
+		ImGui::ColorEdit3("Square Color", glm::value_ptr(m_SquareColor));
+		ImGui::End();
 	}
 
 	void OnEvent(ROUGE2::Event& event) override {
@@ -215,7 +214,10 @@ private:
 	float m_CamMoveSpeed = 3.0f;
 	float m_CamRotSpeed = 100.0f;
 
+	glm::vec3 m_SquareColor = { 0.2f, 0.3f, 0.8f };
 };
+
+
 
 class Sandbox : public ROUGE2::Application {
 public:

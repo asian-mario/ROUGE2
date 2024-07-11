@@ -140,6 +140,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLShader.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
@@ -149,6 +150,7 @@
     <ClInclude Include="src\ROUGE2.h" />
     <ClInclude Include="src\ROUGE2\Application.h" />
     <ClInclude Include="src\ROUGE2\Core.h" />
+    <ClInclude Include="src\ROUGE2\Core\Timestep.h" />
     <ClInclude Include="src\ROUGE2\EntryPoint.h" />
     <ClInclude Include="src\ROUGE2\Events\ApplicationEvent.h" />
     <ClInclude Include="src\ROUGE2\Events\Event.h" />
@@ -171,7 +173,6 @@
     <ClInclude Include="src\ROUGE2\Renderer\VertexArray.h" />
     <ClInclude Include="src\ROUGE2\Window.h" />
     <ClInclude Include="src\r2pch.h" />
-    <ClInclude Include="src\ROUGE2\Core\Timestep.h" />
     <ClInclude Include="vendor\glm\glm\common.hpp" />
     <ClInclude Include="vendor\glm\glm\detail\_features.hpp" />
     <ClInclude Include="vendor\glm\glm\detail\_fixes.hpp" />
@@ -590,6 +591,7 @@
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLShader.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp" />

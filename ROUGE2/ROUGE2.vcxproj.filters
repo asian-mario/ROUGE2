@@ -16,6 +16,9 @@
     <Filter Include="src\ROUGE2">
       <UniqueIdentifier>{B0444A2A-9CFC-8B77-0504-65D3F1DA2668}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\ROUGE2\Core">
+      <UniqueIdentifier>{08D75965-7462-C729-7D73-4A1EE97D232A}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\ROUGE2\Events">
       <UniqueIdentifier>{94CA4D28-00E1-4BBE-4958-D7DFB5AD1C46}</UniqueIdentifier>
     </Filter>
@@ -74,6 +77,9 @@
     </ClInclude>
     <ClInclude Include="src\ROUGE2\Core.h">
       <Filter>src\ROUGE2</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ROUGE2\Core\Timestep.h">
+      <Filter>src\ROUGE2\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\ROUGE2\EntryPoint.h">
       <Filter>src\ROUGE2</Filter>
@@ -1389,7 +1395,7 @@
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp">
       <Filter>vendor\glm\glm</Filter>
     </ClInclude>
-    <ClInclude Include="src\ROUGE2\Core\Timestep.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLShader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">
@@ -1452,5 +1458,6 @@
     <ClCompile Include="src\r2pch.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLShader.cpp" />
   </ItemGroup>
 </Project>
