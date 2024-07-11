@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 #ifdef R2_PLATFORM_WINDOWS
 #define ROUGE2_API
 
@@ -18,3 +20,12 @@
 #define BIT(x) (1 << x)
 
 #define R2_BIND_EVENT_FN(fn) std::bind(&fn, this, std::placeholders::_1)
+
+
+namespace ROUGE2 {
+	template<typename T> 
+	using Scope = std::unique_ptr<T>;
+
+	template<typename T>
+	using Ref = std::shared_ptr<T>;
+}

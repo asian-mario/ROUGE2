@@ -21,7 +21,7 @@ public:
 		*/
 
 		
-		std::shared_ptr<ROUGE2::VertexBuffer> vertexBuffer;
+		std::ROUGE2::Ref<ROUGE2::VertexBuffer> vertexBuffer;
 		vertexBuffer.reset(ROUGE2::VertexBuffer::Create(vertices, sizeof(vertices)));
 
 		ROUGE2::BufferLayout layout = {
@@ -33,7 +33,7 @@ public:
 		m_VertexArray->AddVertexBuffer(vertexBuffer);
 
 		uint32_t indices[3] = { 0, 1, 2 };
-		std::shared_ptr<ROUGE2::IndexBuffer> indexBuffer;
+		std::ROUGE2::Ref<ROUGE2::IndexBuffer> indexBuffer;
 		indexBuffer.reset(ROUGE2::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
 		m_VertexArray->SetIndexBuffer(indexBuffer);
 
@@ -48,7 +48,7 @@ public:
 			-0.5f,  0.5f, 0.0f
 		};
 
-		std::shared_ptr<ROUGE2::VertexBuffer> squareVB;
+		std::ROUGE2::Ref<ROUGE2::VertexBuffer> squareVB;
 		squareVB.reset(ROUGE2::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
 		squareVB->SetLayout({
 			{ ROUGE2::ShaderDataType::Vec3, "a_Position" }
@@ -56,7 +56,7 @@ public:
 		m_SquareVA->AddVertexBuffer(squareVB);
 
 		uint32_t squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
-		std::shared_ptr<ROUGE2::IndexBuffer> squareIB;
+		std::ROUGE2::Ref<ROUGE2::IndexBuffer> squareIB;
 		squareIB.reset(ROUGE2::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
 		m_SquareVA->SetIndexBuffer(squareIB);
 
@@ -199,11 +199,11 @@ public:
 
 
 private:
-	std::shared_ptr<ROUGE2::Shader> m_Shader;
-	std::shared_ptr<ROUGE2::VertexArray> m_VertexArray;
+	ROUGE2::Ref<ROUGE2::Shader> m_Shader;
+	ROUGE2::Ref<ROUGE2::VertexArray> m_VertexArray;
 
-	std::shared_ptr<ROUGE2::Shader> m_Shader2;
-	std::shared_ptr<ROUGE2::VertexArray> m_SquareVA;
+	ROUGE2::Ref<ROUGE2::Shader> m_Shader2;
+	ROUGE2::Ref<ROUGE2::VertexArray> m_SquareVA;
 
 	ROUGE2::OrthoCamera m_Camera;
 	glm::vec3 m_CamPos;
