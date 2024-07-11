@@ -5,7 +5,7 @@
 #include <glm/gtc/type_ptr.hpp>
 class ExLayer : public ROUGE2::Layer {
 public:
-	ExLayer() : Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f), m_CamPos(0.0f, 0.0f, 0.0f)
+	ExLayer() : Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f), m_CamPos(0.0f, 0.0f, 0.0f), m_CamRot(0.0f)
 	{
 		m_VertexArray.reset(ROUGE2::VertexArray::Create());
 
@@ -38,7 +38,6 @@ public:
 		m_VertexArray->SetIndexBuffer(indexBuffer);
 
 
-		uint32_t index = 0;
 		m_SquareVA.reset(ROUGE2::VertexArray::Create());
 
 
@@ -62,7 +61,7 @@ public:
 		m_SquareVA->SetIndexBuffer(squareIB);
 
 		std::string vertexSrc = R"(
-			#version 330
+			#version 330 core
 			
 			layout(location = 0) in vec3 a_Position;
 			layout(location = 1) in vec4 a_Color;
@@ -71,12 +70,12 @@ public:
 			out vec4 v_Color;
 			
 			uniform mat4 u_ViewProj;
-			uniform mat4 u_ModelMat;
+			uniform mat4 u_Transform;
 
 			void main(){
 				v_Position = a_Position;
 				v_Color = a_Color;
-				gl_Position = u_ViewProj * u_ModelMat * vec4(a_Position, 1.0);
+				gl_Position = u_ViewProj * u_Transform * vec4(a_Position, 1.0);
 				
 			}			
 
@@ -84,7 +83,7 @@ public:
 		)"; //dont judge this is temporary testing
 
 		std::string fragmentSrc = R"(
-			#version 330
+			#version 330 core
 			
 			layout(location = 0) out vec4 col;
 			in vec3 v_Position;
@@ -95,8 +94,6 @@ public:
 				col = v_Color;
 				
 			}			
-
-
 		)";
 
 		m_Shader.reset(ROUGE2::Shader::Create(vertexSrc, fragmentSrc));
@@ -107,13 +104,13 @@ public:
 			layout(location = 0) in vec3 a_Position;
 			out vec3 v_Position;
 			uniform mat4 u_ViewProj;
-			uniform mat4 u_ModelMat;
+			uniform mat4 u_Transform;
 
 
 			void main()
 			{
 				v_Position = a_Position;
-				gl_Position = u_ViewProj * u_ModelMat * vec4(a_Position, 1.0);	
+				gl_Position = u_ViewProj * u_Transform * vec4(a_Position, 1.0);	
 			}
 		)";
 
@@ -123,11 +120,11 @@ public:
 			layout(location = 0) out vec4 color;
 			in vec3 v_Position;
 		
-			uniform vec4 u_Color;
+			uniform vec3 u_Color;
 
 			void main()
 			{
-				color = u_Color;
+				color = vec4(u_Color, 1.0);
 			}
 		)";
 
@@ -181,6 +178,7 @@ public:
 				glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
 
 				ROUGE2::Renderer::Submit(m_Shader2, m_SquareVA, transform);
+				
 			}
 		}
 

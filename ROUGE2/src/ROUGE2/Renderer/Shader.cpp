@@ -6,7 +6,7 @@
 
 namespace ROUGE2 {
 
-	Shader* Shader::Create(const std::string& vertexSrc, const std::string& fragmentSrc){
+	Shader* Shader::Create(const std::string &vertexSrc, const std::string &fragmentSrc){
 		switch (Renderer::GetAPI())
 		{
 		case RendererAPI::API::None:    R2_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
