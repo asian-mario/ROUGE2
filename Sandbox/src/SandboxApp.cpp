@@ -164,7 +164,7 @@ public:
 
 		m_TextureShader.reset(ROUGE2::Shader::Create(texShaderVertexSrc, texShaderFragmentSrc));
 
-		m_Texture = (ROUGE2::Texture2D::Create("assets/textures/Checkerboard.png"));
+		m_Texture = (ROUGE2::Texture2D::Create("assets/textures/ROUGENON.png"));
 
 		std::dynamic_pointer_cast<ROUGE2::OpenGLShader>(m_TextureShader)->Bind();
 		std::dynamic_pointer_cast<ROUGE2::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
