@@ -20,6 +20,7 @@
 
 #include "ROUGE2/Renderer/Buffer.h"
 #include "ROUGE2/Renderer/Shader.h"
+#include "ROUGE2/Renderer/Texture.h"
 #include "ROUGE2/Renderer/VertexArray.h"
 
 #include "ROUGE2/Renderer/OrthoCamera.h"

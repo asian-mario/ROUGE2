@@ -41,17 +41,18 @@ public:
 		m_SquareVA.reset(ROUGE2::VertexArray::Create());
 
 
-		float squareVertices[3 * 4] = {
-			-0.5f, -0.5f, 0.0f,
-			 0.5f, -0.5f, 0.0f,
-			 0.5f,  0.5f, 0.0f,
-			-0.5f,  0.5f, 0.0f
+		float squareVertices[5 * 4] = {
+			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
+			 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+			 0.5f,  0.5f, 0.0f, 1.0f, 1.0f,
+			-0.5f,  0.5f, 0.0f, 0.0f, 1.0f
 		};
 
 		ROUGE2::Ref<ROUGE2::VertexBuffer> squareVB;
 		squareVB.reset(ROUGE2::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
 		squareVB->SetLayout({
-			{ ROUGE2::ShaderDataType::Vec3, "a_Position" }
+			{ ROUGE2::ShaderDataType::Vec3, "a_Position" },
+			{ ROUGE2::ShaderDataType::Vec2, "a_TexCoord" }
 			});
 		m_SquareVA->AddVertexBuffer(squareVB);
 
@@ -129,6 +130,45 @@ public:
 		)";
 
 		m_Shader2.reset(ROUGE2::Shader::Create(FlatColVertexSrc, FlatColFragmentSrc));
+
+		std::string texShaderVertexSrc = R"(
+			#version 330 core
+			
+			layout(location = 0) in vec3 a_Position;
+			layout(location = 1) in vec2 a_TexCoord;
+
+			uniform mat4 u_ViewProj;
+			uniform mat4 u_Transform;
+
+			out vec2 v_TexCoord;
+
+			void main()
+			{
+				v_TexCoord = a_TexCoord;
+				gl_Position = u_ViewProj * u_Transform * vec4(a_Position, 1.0);	
+			}
+		)";
+
+		std::string texShaderFragmentSrc = R"(
+			#version 330 core
+			
+			layout(location = 0) out vec4 color;
+			in vec2 v_TexCoord;
+			uniform sampler2D u_Texture;
+
+			void main()
+			{
+				color = texture(u_Texture, v_TexCoord);
+			}
+		)";
+
+		m_TextureShader.reset(ROUGE2::Shader::Create(texShaderVertexSrc, texShaderFragmentSrc));
+
+		m_Texture = (ROUGE2::Texture2D::Create("assets/textures/Checkerboard.png"));
+
+		std::dynamic_pointer_cast<ROUGE2::OpenGLShader>(m_TextureShader)->Bind();
+		std::dynamic_pointer_cast<ROUGE2::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
+
 	}
 
 	void OnUpdate(ROUGE2::Timestep ts) override{
@@ -182,7 +222,10 @@ public:
 			}
 		}
 
-		ROUGE2::Renderer::Submit(m_Shader, m_VertexArray);
+		m_Texture->Bind();
+		ROUGE2::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+
+		//ROUGE2::Renderer::Submit(m_Shader, m_VertexArray);
 
 		ROUGE2::Renderer::EndScene();
 	}
@@ -202,7 +245,9 @@ private:
 	ROUGE2::Ref<ROUGE2::Shader> m_Shader;
 	ROUGE2::Ref<ROUGE2::VertexArray> m_VertexArray;
 
-	ROUGE2::Ref<ROUGE2::Shader> m_Shader2;
+	ROUGE2::Ref<ROUGE2::Texture2D> m_Texture;
+
+	ROUGE2::Ref<ROUGE2::Shader> m_Shader2, m_TextureShader;
 	ROUGE2::Ref<ROUGE2::VertexArray> m_SquareVA;
 
 	ROUGE2::OrthoCamera m_Camera;
@@ -212,7 +257,7 @@ private:
 	float m_CamMoveSpeed = 3.0f;
 	float m_CamRotSpeed = 100.0f;
 
-	glm::vec3 m_SquareColor = { 0.2f, 0.3f, 0.8f };
+	glm::vec3 m_SquareColor = { 0.6f, 0.2f, 0.2f };
 };
 
 

@@ -17,6 +17,7 @@ IncludeDir["GLFW"] = "ROUGE2/vendor/GLFW/include"
 IncludeDir["Glad"] = "ROUGE2/vendor/Glad/include"
 IncludeDir["ImGui"] = "ROUGE2/vendor/imgui"
 IncludeDir["glm"] = "ROUGE2/vendor/glm"
+IncludeDir["stb_image"] = "ROUGE2/vendor/stb_image"
 
 include "ROUGE2/vendor/GLFW"
 include "ROUGE2/vendor/Glad"
@@ -39,7 +40,9 @@ project "ROUGE2"
     files
     {
         "%{prj.name}/src/**.h",
-        "%{prj.name}/src/**.cpp",
+				"%{prj.name}/src/**.cpp",
+				"%{prj.name}/vendor/stb_image/**.h",
+        "%{prj.name}/vendor/stb_image/**.cpp",
         "%{prj.name}/vendor/glm/glm/**.hpp",
         "%{prj.name}/vendor/glm/glm/**.inl",
     }
@@ -56,11 +59,12 @@ project "ROUGE2"
         "%{IncludeDir.GLFW}",
         "%{IncludeDir.Glad}",
         "%{IncludeDir.ImGui}",
-        "%{IncludeDir.glm}"
+        "%{IncludeDir.glm}",
+				"%{IncludeDir.stb_image}"
     }
 
-    links 
-    { 
+    links
+    {
         "GLFW",
         "Glad",
         "ImGui",
