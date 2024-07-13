@@ -164,7 +164,9 @@ public:
 
 		m_TextureShader.reset(ROUGE2::Shader::Create(texShaderVertexSrc, texShaderFragmentSrc));
 
-		m_Texture = (ROUGE2::Texture2D::Create("assets/textures/ROUGENON.png"));
+		m_TestBGTex = (ROUGE2::Texture2D::Create("assets/textures/Checkerboard.png"));
+
+		m_Texture = (ROUGE2::Texture2D::Create("assets/textures/ROUGE.png"));
 
 		std::dynamic_pointer_cast<ROUGE2::OpenGLShader>(m_TextureShader)->Bind();
 		std::dynamic_pointer_cast<ROUGE2::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
@@ -222,8 +224,11 @@ public:
 			}
 		}
 
-		m_Texture->Bind();
+		m_TestBGTex->Bind();
 		ROUGE2::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+
+		m_Texture->Bind();
+		ROUGE2::Renderer::Submit(m_TextureShader, m_SquareVA, glm::translate(glm::mat4(1.0f), logoVec) * glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
 		//ROUGE2::Renderer::Submit(m_Shader, m_VertexArray);
 
@@ -233,6 +238,7 @@ public:
 	{
 		ImGui::Begin("Settings");
 		ImGui::ColorEdit3("Square Color", glm::value_ptr(m_SquareColor));
+		ImGui::SliderFloat3("Logo Vector", glm::value_ptr(logoVec), -5.0f, 5.0f);
 		ImGui::End();
 	}
 
@@ -245,7 +251,7 @@ private:
 	ROUGE2::Ref<ROUGE2::Shader> m_Shader;
 	ROUGE2::Ref<ROUGE2::VertexArray> m_VertexArray;
 
-	ROUGE2::Ref<ROUGE2::Texture2D> m_Texture;
+	ROUGE2::Ref<ROUGE2::Texture2D> m_Texture, m_TestBGTex;
 
 	ROUGE2::Ref<ROUGE2::Shader> m_Shader2, m_TextureShader;
 	ROUGE2::Ref<ROUGE2::VertexArray> m_SquareVA;
@@ -258,6 +264,7 @@ private:
 	float m_CamRotSpeed = 100.0f;
 
 	glm::vec3 m_SquareColor = { 0.6f, 0.2f, 0.2f };
+	glm::vec3 logoVec = { 0.25f, -0.25f, 0.0f };
 };
 
 

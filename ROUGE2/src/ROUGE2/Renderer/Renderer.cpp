@@ -5,6 +5,9 @@
 namespace ROUGE2 {
 
 	Renderer::SceneData* Renderer::m_SceneData = new Renderer::SceneData;
+	void Renderer::Init(){
+		RenderCommand::Init();
+	}
 	void Renderer::BeginScene(OrthoCamera& camera){
 		m_SceneData->ViewProjMatrix = camera.GetViewProjMatrix();
 	}

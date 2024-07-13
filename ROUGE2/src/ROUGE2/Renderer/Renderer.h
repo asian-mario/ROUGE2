@@ -8,6 +8,7 @@ namespace ROUGE2 {
 
 	class Renderer {
 	public:
+		static void Init();
 		static void BeginScene(OrthoCamera& camera); // take scene params later
 		static void EndScene();
 
