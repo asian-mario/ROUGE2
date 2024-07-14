@@ -131,38 +131,7 @@ public:
 
 		m_Shader2.reset(ROUGE2::Shader::Create(FlatColVertexSrc, FlatColFragmentSrc));
 
-		std::string texShaderVertexSrc = R"(
-			#version 330 core
-			
-			layout(location = 0) in vec3 a_Position;
-			layout(location = 1) in vec2 a_TexCoord;
-
-			uniform mat4 u_ViewProj;
-			uniform mat4 u_Transform;
-
-			out vec2 v_TexCoord;
-
-			void main()
-			{
-				v_TexCoord = a_TexCoord;
-				gl_Position = u_ViewProj * u_Transform * vec4(a_Position, 1.0);	
-			}
-		)";
-
-		std::string texShaderFragmentSrc = R"(
-			#version 330 core
-			
-			layout(location = 0) out vec4 color;
-			in vec2 v_TexCoord;
-			uniform sampler2D u_Texture;
-
-			void main()
-			{
-				color = texture(u_Texture, v_TexCoord);
-			}
-		)";
-
-		m_TextureShader.reset(ROUGE2::Shader::Create(texShaderVertexSrc, texShaderFragmentSrc));
+		m_TextureShader.reset(ROUGE2::Shader::Create("assets/shaders/Texture.glsl"));
 
 		m_TestBGTex = (ROUGE2::Texture2D::Create("assets/textures/Checkerboard.png"));
 
