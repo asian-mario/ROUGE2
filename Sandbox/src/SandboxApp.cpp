@@ -97,7 +97,7 @@ public:
 			}			
 		)";
 
-		m_Shader.reset(ROUGE2::Shader::Create(vertexSrc, fragmentSrc));
+		m_Shader = ROUGE2::Shader::Create("VertColTriangle", vertexSrc, fragmentSrc);
 
 		std::string FlatColVertexSrc = R"(
 			#version 330 core
@@ -129,16 +129,16 @@ public:
 			}
 		)";
 
-		m_Shader2.reset(ROUGE2::Shader::Create(FlatColVertexSrc, FlatColFragmentSrc));
+		m_Shader2 = ROUGE2::Shader::Create("FlatCol", FlatColVertexSrc, FlatColFragmentSrc);
 
-		m_TextureShader.reset(ROUGE2::Shader::Create("assets/shaders/Texture.glsl"));
+		auto textureShader = m_ShaderLibrary.Load("assets/shaders/texture.glsl");
 
 		m_TestBGTex = (ROUGE2::Texture2D::Create("assets/textures/Checkerboard.png"));
 
 		m_Texture = (ROUGE2::Texture2D::Create("assets/textures/ROUGE.png"));
 
-		std::dynamic_pointer_cast<ROUGE2::OpenGLShader>(m_TextureShader)->Bind();
-		std::dynamic_pointer_cast<ROUGE2::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
+		std::dynamic_pointer_cast<ROUGE2::OpenGLShader>(textureShader)->Bind();
+		std::dynamic_pointer_cast<ROUGE2::OpenGLShader>(textureShader)->UploadUniformInt("u_Texture", 0);
 
 	}
 
@@ -193,11 +193,13 @@ public:
 			}
 		}
 
+		auto textureShader = m_ShaderLibrary.Get("texture");
+
 		m_TestBGTex->Bind();
-		ROUGE2::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+		ROUGE2::Renderer::Submit(textureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
 		m_Texture->Bind();
-		ROUGE2::Renderer::Submit(m_TextureShader, m_SquareVA, glm::translate(glm::mat4(1.0f), logoVec) * glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+		ROUGE2::Renderer::Submit(textureShader, m_SquareVA, glm::translate(glm::mat4(1.0f), logoVec) * glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
 		//ROUGE2::Renderer::Submit(m_Shader, m_VertexArray);
 
@@ -217,12 +219,13 @@ public:
 
 
 private:
+	ROUGE2::ShaderLibrary m_ShaderLibrary;
 	ROUGE2::Ref<ROUGE2::Shader> m_Shader;
 	ROUGE2::Ref<ROUGE2::VertexArray> m_VertexArray;
 
 	ROUGE2::Ref<ROUGE2::Texture2D> m_Texture, m_TestBGTex;
 
-	ROUGE2::Ref<ROUGE2::Shader> m_Shader2, m_TextureShader;
+	ROUGE2::Ref<ROUGE2::Shader> m_Shader2;
 	ROUGE2::Ref<ROUGE2::VertexArray> m_SquareVA;
 
 	ROUGE2::OrthoCamera m_Camera;

@@ -20,9 +20,14 @@ namespace ROUGE2 {
 		std::string source = ReadFile(filepath);
 		auto shaderSources = PreProcess(source);
 		Compile(shaderSources);
+
+		std::filesystem::path path = filepath;
+		m_Name = path.stem().string(); // Returns the file's name stripped of the extension.
 	}
 
-	OpenGLShader::OpenGLShader(const std::string& vertexSrc, const std::string& fragmentSrc){
+	OpenGLShader::OpenGLShader(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc)
+		: m_Name(name)
+	{
 		std::unordered_map<GLenum, std::string> sources;
 		sources[GL_VERTEX_SHADER] = vertexSrc;
 		sources[GL_FRAGMENT_SHADER] = fragmentSrc;
@@ -35,7 +40,7 @@ namespace ROUGE2 {
 
 	std::string OpenGLShader::ReadFile(const std::string& filepath){
 		std::string result;
-		std::ifstream in(filepath, std::ios::in, std::ios::binary);//might do per platform later
+		std::ifstream in(filepath, std::ios::in | std::ios::binary);//might do per platform later
 		if (in) {
 			in.seekg(0, std::ios::end);
 			result.resize(in.tellg());
@@ -75,7 +80,10 @@ namespace ROUGE2 {
 
 	void OpenGLShader::Compile(std::unordered_map<GLenum, std::string>& shaderSources){
 		GLuint program = glCreateProgram();
-		std::vector<GLenum> glShaderID(shaderSources.size());
+		R2_CORE_ASSERT(shaderSources.size() <= 2, "EXCEED SHADER SOURCES! (2)")
+		std::array<GLenum, 2> glShaderID; //yes its small but vectors are going to tank performance, ill change it
+
+		int glShaderIDIndex = 0;
 		for (auto& kv : shaderSources) {
 			GLenum type = kv.first;
 			const std::string& source = kv.second;
@@ -104,7 +112,7 @@ namespace ROUGE2 {
 				break;
 			}
 			glAttachShader(program, shader);
-			glShaderID.push_back(shader);
+			glShaderID[glShaderIDIndex++] = shader;
 		}
 
 		m_RendererID = program;
