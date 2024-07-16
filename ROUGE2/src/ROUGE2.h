@@ -12,6 +12,7 @@
 #include "ROUGE2/Input.h"
 #include "ROUGE2/MouseButtonCodes.h"
 #include "ROUGE2/KeyCodes.h"
+#include "ROUGE2/OrthographicCameraController.h"
 
 #include "ROUGE2/ImGui/ImGuiLayer.h"
 
@@ -24,6 +25,7 @@
 #include "ROUGE2/Renderer/VertexArray.h"
 
 #include "ROUGE2/Renderer/OrthoCamera.h"
+
 
 
 //--ENTRY POINT--------------

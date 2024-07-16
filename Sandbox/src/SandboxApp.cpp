@@ -5,7 +5,7 @@
 #include <glm/gtc/type_ptr.hpp>
 class ExLayer : public ROUGE2::Layer {
 public:
-	ExLayer() : Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f), m_CamPos(0.0f, 0.0f, 0.0f), m_CamRot(0.0f)
+	ExLayer() : Layer("Example"), m_CamController(1280.0f / 720.0f, true)
 	{
 		m_VertexArray.reset(ROUGE2::VertexArray::Create());
 
@@ -143,38 +143,14 @@ public:
 	}
 
 	void OnUpdate(ROUGE2::Timestep ts) override{
+		m_CamController.OnUpdate(ts);
+
 		R2_TRACE("Delta Time: {0} seconds o/ ({1} ms)", ts.GetSeconds(), ts.GetMilliseconds());
 
-		//------------------------------------------------------
-		if (ROUGE2::Input::IsKeyPressed(R2_KEY_LEFT)) {
-			m_CamPos.x -= m_CamMoveSpeed * ts;
-		}
-		else if (ROUGE2::Input::IsKeyPressed(R2_KEY_RIGHT)) {
-			m_CamPos.x += m_CamMoveSpeed * ts;
-		}
-		if (ROUGE2::Input::IsKeyPressed(R2_KEY_UP)) {
-			m_CamPos.y += m_CamMoveSpeed * ts;
-		}
-		else if (ROUGE2::Input::IsKeyPressed(R2_KEY_DOWN)) {
-			m_CamPos.y -= m_CamMoveSpeed * ts;
-		}
-
-
-		//------------------------------------------------------
-		if (ROUGE2::Input::IsKeyPressed(R2_KEY_A)) {
-			m_CamRot -= m_CamRotSpeed * ts;
-		}
-		if (ROUGE2::Input::IsKeyPressed(R2_KEY_D)) {
-			m_CamRot += m_CamRotSpeed * ts;
-		}
-		//------------------------------------------------------
 		ROUGE2::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 		ROUGE2::RenderCommand::Clear();
 
-		m_Camera.SetPosition(m_CamPos);
-		m_Camera.SetRotation(m_CamRot);
-
-		ROUGE2::Renderer::BeginScene(m_Camera);
+		ROUGE2::Renderer::BeginScene(m_CamController.GetCamera());
 
 		glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
@@ -209,12 +185,11 @@ public:
 	{
 		ImGui::Begin("Settings");
 		ImGui::ColorEdit3("Square Color", glm::value_ptr(m_SquareColor));
-		ImGui::SliderFloat3("Logo Vector", glm::value_ptr(logoVec), -5.0f, 5.0f);
 		ImGui::End();
 	}
 
-	void OnEvent(ROUGE2::Event& event) override {
-
+	void OnEvent(ROUGE2::Event& e) override {
+		m_CamController.OnEvent(e);
 	}
 
 
@@ -228,12 +203,9 @@ private:
 	ROUGE2::Ref<ROUGE2::Shader> m_Shader2;
 	ROUGE2::Ref<ROUGE2::VertexArray> m_SquareVA;
 
-	ROUGE2::OrthoCamera m_Camera;
+	ROUGE2::OrthographicCameraController m_CamController;
 	glm::vec3 m_CamPos;
 
-	float m_CamRot = 0.0f;
-	float m_CamMoveSpeed = 3.0f;
-	float m_CamRotSpeed = 100.0f;
 
 	glm::vec3 m_SquareColor = { 0.6f, 0.2f, 0.2f };
 	glm::vec3 logoVec = { 0.25f, -0.25f, 0.0f };
