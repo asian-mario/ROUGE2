@@ -55,11 +55,11 @@ namespace ROUGE2 {
 		//set callbacks -- all events
 		glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height) {
 			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+			data.Width = width;
+			data.Height = height;
 
 			WindowResizeEvent event(width, height);
 			data.EventCallback(event);
-			data.Width = width;
-			data.Height = height;
 
 		});
 

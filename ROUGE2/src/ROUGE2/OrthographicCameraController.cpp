@@ -49,15 +49,14 @@ namespace ROUGE2 {
 	}
 
 	bool OrthographicCameraController::OnMouseScrolled(MouseScrolledEvent& e){
-		m_ZoomLevel -= (e.GetYOffset()) / 2;
+		m_ZoomLevel -= e.GetYOffset() * 0.25f;
 		m_ZoomLevel = std::max(m_ZoomLevel, 0.25f);
 		m_Camera.SetProj(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);
-
 		return false;
 	}
 
 	bool OrthographicCameraController::OnWindowresized(WindowResizeEvent& e){
-		m_AspectRatio = (float)e.GetWidth() / (float)e.GetWidth();
+		m_AspectRatio = (float)e.GetWidth() / (float)e.GetHeight();
 		m_Camera.SetProj(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);
 		return false;
 	}
