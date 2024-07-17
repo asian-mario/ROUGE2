@@ -1,5 +1,5 @@
 #pragma once
-#include "ROUGE2/Window.h"
+#include "ROUGE2/Core/Window.h"
 #include "ROUGE2/Renderer/GraphicsContext.h"
 #include <GLFW/glfw3.h>
 

@@ -81,17 +81,38 @@
     <ClInclude Include="src\ROUGE2.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\ROUGE2\Application.h">
-      <Filter>src\ROUGE2</Filter>
+    <ClInclude Include="src\ROUGE2\Core\Application.h">
+      <Filter>src\ROUGE2\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\ROUGE2\Core.h">
-      <Filter>src\ROUGE2</Filter>
+    <ClInclude Include="src\ROUGE2\Core\Core.h">
+      <Filter>src\ROUGE2\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ROUGE2\Core\EntryPoint.h">
+      <Filter>src\ROUGE2\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ROUGE2\Core\Input.h">
+      <Filter>src\ROUGE2\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ROUGE2\Core\KeyCodes.h">
+      <Filter>src\ROUGE2\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ROUGE2\Core\Layer.h">
+      <Filter>src\ROUGE2\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ROUGE2\Core\LayerStack.h">
+      <Filter>src\ROUGE2\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ROUGE2\Core\Log.h">
+      <Filter>src\ROUGE2\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ROUGE2\Core\MouseButtonCodes.h">
+      <Filter>src\ROUGE2\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\ROUGE2\Core\Timestep.h">
       <Filter>src\ROUGE2\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\ROUGE2\EntryPoint.h">
-      <Filter>src\ROUGE2</Filter>
+    <ClInclude Include="src\ROUGE2\Core\Window.h">
+      <Filter>src\ROUGE2\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\ROUGE2\Events\ApplicationEvent.h">
       <Filter>src\ROUGE2\Events</Filter>
@@ -108,24 +129,6 @@
     <ClInclude Include="src\ROUGE2\ImGui\ImGuiLayer.h">
       <Filter>src\ROUGE2\ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="src\ROUGE2\Input.h">
-      <Filter>src\ROUGE2</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ROUGE2\KeyCodes.h">
-      <Filter>src\ROUGE2</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ROUGE2\Layer.h">
-      <Filter>src\ROUGE2</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ROUGE2\LayerStack.h">
-      <Filter>src\ROUGE2</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ROUGE2\Log.h">
-      <Filter>src\ROUGE2</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ROUGE2\MouseButtonCodes.h">
-      <Filter>src\ROUGE2</Filter>
-    </ClInclude>
     <ClInclude Include="src\ROUGE2\Renderer\Buffer.h">
       <Filter>src\ROUGE2\Renderer</Filter>
     </ClInclude>
@@ -133,6 +136,9 @@
       <Filter>src\ROUGE2\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\ROUGE2\Renderer\OrthoCamera.h">
+      <Filter>src\ROUGE2\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ROUGE2\Renderer\OrthographicCameraController.h">
       <Filter>src\ROUGE2\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\ROUGE2\Renderer\RenderCommand.h">
@@ -152,9 +158,6 @@
     </ClInclude>
     <ClInclude Include="src\ROUGE2\Renderer\VertexArray.h">
       <Filter>src\ROUGE2\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ROUGE2\Window.h">
-      <Filter>src\ROUGE2</Filter>
     </ClInclude>
     <ClInclude Include="src\r2pch.h">
       <Filter>src</Filter>
@@ -1410,7 +1413,6 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="src\ROUGE2\OrthographicCameraController.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">
@@ -1437,8 +1439,17 @@
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp">
       <Filter>src\Platform\Windows</Filter>
     </ClCompile>
-    <ClCompile Include="src\ROUGE2\Application.cpp">
-      <Filter>src\ROUGE2</Filter>
+    <ClCompile Include="src\ROUGE2\Core\Application.cpp">
+      <Filter>src\ROUGE2\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ROUGE2\Core\Layer.cpp">
+      <Filter>src\ROUGE2\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ROUGE2\Core\LayerStack.cpp">
+      <Filter>src\ROUGE2\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ROUGE2\Core\Log.cpp">
+      <Filter>src\ROUGE2\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\ROUGE2\ImGui\ImGuiBuild.cpp">
       <Filter>src\ROUGE2\ImGui</Filter>
@@ -1446,19 +1457,13 @@
     <ClCompile Include="src\ROUGE2\ImGui\ImGuiLayer.cpp">
       <Filter>src\ROUGE2\ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="src\ROUGE2\Layer.cpp">
-      <Filter>src\ROUGE2</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ROUGE2\LayerStack.cpp">
-      <Filter>src\ROUGE2</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ROUGE2\Log.cpp">
-      <Filter>src\ROUGE2</Filter>
-    </ClCompile>
     <ClCompile Include="src\ROUGE2\Renderer\Buffer.cpp">
       <Filter>src\ROUGE2\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\ROUGE2\Renderer\OrthoCamera.cpp">
+      <Filter>src\ROUGE2\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ROUGE2\Renderer\OrthographicCameraController.cpp">
       <Filter>src\ROUGE2\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\ROUGE2\Renderer\RenderCommand.cpp">
@@ -1485,6 +1490,5 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
-    <ClCompile Include="src\ROUGE2\OrthographicCameraController.cpp" />
   </ItemGroup>
 </Project>

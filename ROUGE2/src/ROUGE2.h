@@ -3,16 +3,16 @@
 //use for R2 apps
 
 
-#include "ROUGE2/Application.h"
-#include "ROUGE2/Layer.h"
-#include "ROUGE2/Log.h"
+#include "ROUGE2/Core/Application.h"
+#include "ROUGE2/Core/Layer.h"
+#include "ROUGE2/Core/Log.h"
 
 #include "ROUGE2/Core/Timestep.h"
 
-#include "ROUGE2/Input.h"
-#include "ROUGE2/MouseButtonCodes.h"
-#include "ROUGE2/KeyCodes.h"
-#include "ROUGE2/OrthographicCameraController.h"
+#include "ROUGE2/Core/Input.h"
+#include "ROUGE2/Core/MouseButtonCodes.h"
+#include "ROUGE2/Core/KeyCodes.h"
+#include "ROUGE2/Renderer/OrthographicCameraController.h"
 
 #include "ROUGE2/ImGui/ImGuiLayer.h"
 
@@ -29,5 +29,5 @@
 
 
 //--ENTRY POINT--------------
-#include "ROUGE2/EntryPoint.h"
+#include "ROUGE2/Core/EntryPoint.h"
 //--ENTRY POINT--------------

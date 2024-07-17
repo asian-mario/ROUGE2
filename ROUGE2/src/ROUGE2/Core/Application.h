@@ -1,14 +1,14 @@
 #pragma once
 
 #include "Core.h"
-#include "Events/Event.h"
+#include "ROUGE2/Events/Event.h"
 #include "LayerStack.h"
 #include "Window.h"
-#include "Events/ApplicationEvent.h"
+#include "ROUGE2/Events/ApplicationEvent.h"
 
 #include "ROUGE2/Core/Timestep.h"
 
-#include "ImGui/ImGuiLayer.h"
+#include "ROUGE2/ImGui/ImGuiLayer.h"
 
 namespace ROUGE2 {
 

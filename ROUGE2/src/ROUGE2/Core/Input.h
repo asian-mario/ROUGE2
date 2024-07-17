@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ROUGE2/Core.h"
+#include "ROUGE2/Core/Core.h"
 
 namespace ROUGE2 {
 	class ROUGE2_API Input {

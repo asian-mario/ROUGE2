@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ROUGE2/Input.h"
+#include "ROUGE2/Core/Input.h"
 
 namespace ROUGE2 {
 	class WindowsInput : public Input {

@@ -15,7 +15,7 @@
 
 #include <filesystem>
 
-#include "ROUGE2/Log.h"
+#include "ROUGE2/Core/Log.h"
 
 #ifdef R2_PLATFORM_WINDOWS
 	#include <Windows.h>

@@ -1,7 +1,7 @@
 #include "r2pch.h"
 #include "WindowsInput.h"
 
-#include "ROUGE2/Application.h"
+#include "ROUGE2/Core/Application.h"
 #include <GLFW/glfw3.h>
 
 namespace ROUGE2 {

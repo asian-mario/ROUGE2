@@ -1,6 +1,6 @@
 #include "r2pch.h"
 #include "Application.h"
-#include "ROUGE2/Log.h"
+#include "ROUGE2/Core/Log.h"
 #include "ROUGE2/Renderer/Renderer.h"
 
 #include "Input.h"

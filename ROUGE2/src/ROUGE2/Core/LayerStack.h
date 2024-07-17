@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ROUGE2/Core.h"
+#include "ROUGE2/Core/Core.h"
 #include "Layer.h"
 
 #include <vector>

@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include "ROUGE2/Core.h"
+#include "ROUGE2/Core/Core.h"
 namespace ROUGE2 {
 	class Texture {
 	public:

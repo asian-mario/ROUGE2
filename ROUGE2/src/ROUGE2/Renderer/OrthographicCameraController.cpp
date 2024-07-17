@@ -1,8 +1,8 @@
 #include "r2pch.h"
 #include "OrthographicCameraController.h"
 
-#include "ROUGE2/Input.h"
-#include "ROUGE2/KeyCodes.h"
+#include "ROUGE2/Core/Input.h"
+#include "ROUGE2/Core/KeyCodes.h"
 namespace ROUGE2 {
 	OrthographicCameraController::OrthographicCameraController(float aspectRatio, bool rotation)
 		: m_AspectRatio(aspectRatio), m_Camera(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel), m_Rotation(rotation)
