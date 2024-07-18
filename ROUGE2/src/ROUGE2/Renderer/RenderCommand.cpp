@@ -3,5 +3,5 @@
 
 #include "Platform/OpenGL/OpenGLRendererAPI.h"
 namespace ROUGE2 {
-	Scope<RenderCommand> RenderCommand::s_RendererAPI = new OpenGLRendererAPI; // will be created dynamically later
+	Scope<RendererAPI> RenderCommand::s_RendererAPI = CreateScope<OpenGLRendererAPI>(); // will be created dynamically later
 }
