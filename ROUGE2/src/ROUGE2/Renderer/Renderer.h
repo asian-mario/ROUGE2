@@ -23,6 +23,6 @@ namespace ROUGE2 {
 			glm::mat4 ViewProjMatrix;
 		};
 
-		static SceneData* m_SceneData;
+		static Scope<SceneData> m_SceneData;
 	};
 }

@@ -40,10 +40,8 @@ void Sandbox2D::OnDetach(){
 }
 
 void Sandbox2D::OnUpdate(ROUGE2::Timestep ts){
-	// Update
 	m_CameraController.OnUpdate(ts);
 
-	// Render
 	ROUGE2::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 	ROUGE2::RenderCommand::Clear();
 
