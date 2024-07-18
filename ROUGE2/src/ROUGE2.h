@@ -26,8 +26,3 @@
 
 #include "ROUGE2/Renderer/OrthoCamera.h"
 
-
-
-//--ENTRY POINT--------------
-#include "ROUGE2/Core/EntryPoint.h"
-//--ENTRY POINT--------------

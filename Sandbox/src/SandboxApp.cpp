@@ -1,13 +1,17 @@
 #include <ROUGE2.h>
+#include <ROUGE2/Core/EntryPoint.h>
 #include "Platform/OpenGL/OpenGLShader.h"
 #include "imgui/imgui.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+
+#include "Sandbox2D.h"
+
 class ExLayer : public ROUGE2::Layer {
 public:
 	ExLayer() : Layer("Example"), m_CamController(1280.0f / 720.0f, true)
 	{
-		m_VertexArray.reset(ROUGE2::VertexArray::Create());
+		m_VertexArray = ROUGE2::VertexArray::Create();
 
 		float vertices[3 * 7] = {
 			//----------pos---------/------col--------
@@ -38,7 +42,7 @@ public:
 		m_VertexArray->SetIndexBuffer(indexBuffer);
 
 
-		m_SquareVA.reset(ROUGE2::VertexArray::Create());
+		m_SquareVA = ROUGE2::VertexArray::Create();
 
 
 		float squareVertices[5 * 4] = {
@@ -70,13 +74,13 @@ public:
 			out vec3 v_Position;
 			out vec4 v_Color;
 			
-			uniform mat4 u_ViewProj;
+			uniform mat4 u_ViewProjection;
 			uniform mat4 u_Transform;
 
 			void main(){
 				v_Position = a_Position;
 				v_Color = a_Color;
-				gl_Position = u_ViewProj * u_Transform * vec4(a_Position, 1.0);
+				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
 				
 			}			
 
@@ -104,14 +108,14 @@ public:
 			
 			layout(location = 0) in vec3 a_Position;
 			out vec3 v_Position;
-			uniform mat4 u_ViewProj;
+			uniform mat4 u_ViewProjection;
 			uniform mat4 u_Transform;
 
 
 			void main()
 			{
 				v_Position = a_Position;
-				gl_Position = u_ViewProj * u_Transform * vec4(a_Position, 1.0);	
+				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);	
 			}
 		)";
 
@@ -217,7 +221,8 @@ private:
 class Sandbox : public ROUGE2::Application {
 public:
 	Sandbox() {
-		PushLayer(new ExLayer());
+		//PushLayer(new ExLayer());
+		PushLayer(new Sandbox2D());
 	}
 
 	~Sandbox() {
