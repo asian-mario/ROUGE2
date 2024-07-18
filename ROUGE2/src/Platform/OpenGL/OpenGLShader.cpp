@@ -147,6 +147,7 @@ namespace ROUGE2 {
 		// Always detach shaders after a successful link.
 		for (auto id : glShaderID) {
 			glDetachShader(program, id);
+			glDeleteShader(id);
 		}
 
 		m_RendererID = program;

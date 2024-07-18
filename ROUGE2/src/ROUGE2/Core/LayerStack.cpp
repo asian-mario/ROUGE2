@@ -8,6 +8,7 @@ namespace ROUGE2 {
 
 	LayerStack::~LayerStack() {
 		for (Layer* layer : m_Layers) {
+			layer->OnDetach();
 			delete layer;
 		}
 	}
