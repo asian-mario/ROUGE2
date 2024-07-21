@@ -161,27 +161,43 @@ namespace ROUGE2 {
 		glUseProgram(0);
 	}
 
+	void OpenGLShader::SetInt(const std::string& name, int value){
+		UploadUniformInt(name, value);
+	}
+
+	void OpenGLShader::SetVec3(const std::string& name, const glm::vec3& value){
+		UploadUniformVec3(name, value);
+	}
+
+	void OpenGLShader::SetVec4(const std::string& name, const glm::vec4& value){
+		UploadUniformVec4(name, value);
+	}
+
+	void OpenGLShader::SetMat4(const std::string& name, const glm::mat4& value){
+		UploadUniformMat4(name, value);
+	}
+
 	void OpenGLShader::UploadUniformInt(const std::string& name, int value){
 		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
 		glUniform1i(location, value);
 	}
 
-	void OpenGLShader::UploadUniformFloat(const std::string& name, float value){
+	void OpenGLShader::UploadUniformVec(const std::string& name, float value){
 		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
 		glUniform1f(location, value);
 	}
 
-	void OpenGLShader::UploadUniformFloat2(const std::string& name, const glm::vec2& value){
+	void OpenGLShader::UploadUniformVec2(const std::string& name, const glm::vec2& value){
 		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
 		glUniform2f(location, value.x, value.y);
 	}
 
-	void OpenGLShader::UploadUniformFloat3(const std::string& name, const glm::vec3& value){
+	void OpenGLShader::UploadUniformVec3(const std::string& name, const glm::vec3& value){
 		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
 		glUniform3f(location, value.x, value.y, value.z);
 	}
 
-	void OpenGLShader::UploadUniformFloat4(const std::string& name, const glm::vec4& value){
+	void OpenGLShader::UploadUniformVec4(const std::string& name, const glm::vec4& value){
 		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
 		glUniform4f(location, value.x, value.y, value.z, value.w);
 	}

@@ -17,6 +17,8 @@
 #include "ROUGE2/ImGui/ImGuiLayer.h"
 
 #include "ROUGE2/Renderer/Renderer.h"
+#include "ROUGE2/Renderer/Renderer2D.h"
+
 #include "ROUGE2/Renderer/RenderCommand.h"
 
 #include "ROUGE2/Renderer/Buffer.h"

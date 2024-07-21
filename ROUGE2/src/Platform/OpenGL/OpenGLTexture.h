@@ -11,6 +11,7 @@ namespace ROUGE2 {
 		virtual uint32_t getHeight() const override { return m_Height; };
 
 		virtual void Bind(uint32_t slot = 0) const override;
+		virtual void SetLinear(bool linear) const override;
 
 	private:
 		uint32_t m_Width, m_Height;
