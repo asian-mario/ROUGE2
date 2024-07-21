@@ -29,10 +29,12 @@ void Sandbox2D::OnUpdate(ROUGE2::Timestep ts){
 
 	ROUGE2::Renderer2D::DrawQuad({ 0.0f, 0.0f }, { 1.0f, 1.0f }, { 0.9f, 0.2f, 0.1f, 1.0f });
 	ROUGE2::Renderer2D::DrawQuad({ 1.0f, -0.5f }, { 0.8f, 0.8f }, { 0.2f, 0.7f, 0.1f, 1.0f });
-	ROUGE2::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.5f }, { 10.0f, 10.0f }, m_TestBGTex, false);
+	ROUGE2::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.5f }, { 10.0f, 10.0f }, m_TestBGTex, false, m_TexScale);
+
+	//------------------------------TRANSPARENT------------------------------
 	//TODO: fix false blending issue if transparent object is rendered before a BG object thats behind it
 	//Just render it in front for now. Too bad!
-	ROUGE2::Renderer2D::DrawQuad({ 0.3f, 1.0f, 0.1f }, { 0.8f, 0.8f }, m_Texture, true);
+	ROUGE2::Renderer2D::DrawQuad({ 0.3f, 1.0f, 0.1f }, { 0.8f, 0.8f }, m_Texture, true, 1);
 
 
 	ROUGE2::Renderer2D::EndScene();
@@ -41,6 +43,7 @@ void Sandbox2D::OnUpdate(ROUGE2::Timestep ts){
 void Sandbox2D::OnImGuiRender(){
 	ImGui::Begin("Settings");
 	ImGui::ColorEdit4("Square Color", glm::value_ptr(m_SquareColor));
+	ImGui::SliderInt("Texture Tiling Scale", &m_TexScale, 0, 10);
 	ImGui::End();
 }
 

@@ -15,8 +15,8 @@ namespace ROUGE2 {
 		static void DrawQuad(const glm::vec2& position, const glm::vec2& size, const glm::vec4& color); //z defaults to 0
 		static void DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color); // 'layer'
 
-		static void DrawQuad(const glm::vec2& position, const glm::vec2& size, const Ref<Texture2D>& texture, bool linear); 
-		static void DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture2D>& texture, bool linear);
+		static void DrawQuad(const glm::vec2& position, const glm::vec2& size, const Ref<Texture2D>& texture, bool linear, uint8_t texScale);
+		static void DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture2D>& texture, bool linear, uint8_t texScale);
 
 	};
 }

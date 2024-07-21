@@ -24,4 +24,5 @@ private:
 	ROUGE2::Ref<ROUGE2::Texture2D> m_Texture, m_TestBGTex;
 
 	glm::vec4 m_SquareColor = { 0.2f, 0.3f, 0.8f, 1.0f };
+	int m_TexScale = 1;
 };
