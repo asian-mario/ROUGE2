@@ -23,4 +23,11 @@ private:
 	glm::vec4 m_SquareColor = { 0.2f, 0.3f, 0.8f, 1.0f };
 	glm::vec4 m_TintColor = { 1.0f, 1.0, 1.0, 1.0f };
 	int m_TexScale = 1;
+
+	struct ProfileResult {
+		const char* Name;
+		float time;
+	};
+
+	std::vector<ProfileResult> m_ProfileResults;
 };
