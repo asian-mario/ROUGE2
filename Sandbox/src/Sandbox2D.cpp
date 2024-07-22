@@ -13,10 +13,10 @@ Sandbox2D::Sandbox2D()
 }
 
 void Sandbox2D::OnAttach(){
-	R2_PROFILE_FUNCTION();
+	OSVI_PROFILE_FUNCTION();
 	
 	{
-		R2_PROFILE_SCOPE("ON ATTACH")
+		OSVI_PROFILE_SCOPE("ON ATTACH");
 		m_Texture = ROUGE2::Texture2D::Create("assets/textures/ROUGE.png");
 		m_TestBGTex = ROUGE2::Texture2D::Create("assets/textures/Checkerboard.png");
 	}
@@ -27,15 +27,15 @@ void Sandbox2D::OnDetach(){
 
 void Sandbox2D::OnUpdate(ROUGE2::Timestep ts){
 
-	R2_PROFILE_FUNCTION();
+	OSVI_PROFILE_FUNCTION();
 
 	{
-		R2_PROFILE_SCOPE("CAMERA")
+		OSVI_PROFILE_SCOPE("CAMERA");
 		m_CameraController.OnUpdate(ts);
 	}
 
 	{
-		R2_PROFILE_SCOPE("PREP")
+		OSVI_PROFILE_SCOPE("PREP");
 		ROUGE2::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 		ROUGE2::RenderCommand::Clear();
 
@@ -43,7 +43,7 @@ void Sandbox2D::OnUpdate(ROUGE2::Timestep ts){
 	}
 
 	{
-		R2_PROFILE_SCOPE("RENDER DRAW");
+		OSVI_PROFILE_SCOPE("RENDER DRAW");
 		//For texture objects theres going to be an optional "tint" -> set to {1.0f, 1.0f, 1.0f, 1.0f} for base texture color o/  glm::vec4(1.0f)
 		ROUGE2::Renderer2D::DrawQuad({ 0.0f, 0.0f }, { 1.0f, 1.0f }, m_SquareColor);
 		ROUGE2::Renderer2D::DrawQuad({ 1.0f, -0.5f }, { 0.8f, 0.8f }, { 0.2f, 0.7f, 0.1f, 1.0f });

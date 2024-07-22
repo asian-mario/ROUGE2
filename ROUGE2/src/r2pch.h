@@ -16,7 +16,7 @@
 #include <filesystem>
 
 #include "ROUGE2/Core/Log.h"
-#include "ROUGE2/Debug/Instrumentor.h"
+#include "ROUGE2/Debug/OSVI.h"
 
 #ifdef R2_PLATFORM_WINDOWS
 	#include <Windows.h>
