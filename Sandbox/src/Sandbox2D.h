@@ -17,12 +17,10 @@ public:
 private:
 	ROUGE2::OrthographicCameraController m_CameraController;
 
-	// temp
-	ROUGE2::Ref<ROUGE2::VertexArray> m_SquareVA;
-	ROUGE2::Ref<ROUGE2::Shader> m_FlatColorShader;
 
 	ROUGE2::Ref<ROUGE2::Texture2D> m_Texture, m_TestBGTex;
 
 	glm::vec4 m_SquareColor = { 0.2f, 0.3f, 0.8f, 1.0f };
+	glm::vec4 m_TintColor = { 1.0f, 1.0, 1.0, 1.0f };
 	int m_TexScale = 1;
 };
