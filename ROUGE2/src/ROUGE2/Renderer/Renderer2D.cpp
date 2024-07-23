@@ -17,6 +17,8 @@ namespace ROUGE2 {
 	static Renderer2DStorage* s_Data;
 
 	void Renderer2D::Init(){
+		OSVI_PROFILE_FUNCTION();
+
 		s_Data = new Renderer2DStorage();
 
 		s_Data->VertexArray = VertexArray::Create();
@@ -53,16 +55,21 @@ namespace ROUGE2 {
 	}
 
 	void Renderer2D::Shutdown(){
+		OSVI_PROFILE_FUNCTION();
+
 		delete s_Data;
 	}
 
 	void Renderer2D::BeginScene(const OrthoCamera& camera){
+		OSVI_PROFILE_FUNCTION();
+
 		s_Data->TextureShader->Bind();
 		s_Data->TextureShader->SetMat4("u_ViewProjection", camera.GetViewProjMatrix());
 
 	}
 
 	void Renderer2D::EndScene(){
+		OSVI_PROFILE_FUNCTION();
 
 	}
 
@@ -71,6 +78,8 @@ namespace ROUGE2 {
 	}
 
 	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color) {
+		OSVI_PROFILE_FUNCTION();
+
 		s_Data->TextureShader->SetVec4("u_Color", color);
 		s_Data->WhiteTexture->Bind();
 
@@ -87,6 +96,8 @@ namespace ROUGE2 {
 	}
 
 	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture2D>& texture, bool linear, const uint8_t texScale, const glm::vec4& tintCol){
+		OSVI_PROFILE_FUNCTION();
+
 		s_Data->TextureShader->SetVec4("u_Color", tintCol);
 		texture->Bind();
 

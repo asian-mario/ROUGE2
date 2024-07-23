@@ -23,16 +23,17 @@ void Sandbox2D::OnAttach(){
 }
 
 void Sandbox2D::OnDetach(){
+	OSVI_PROFILE_FUNCTION();
+
 }
 
 void Sandbox2D::OnUpdate(ROUGE2::Timestep ts){
 
 	OSVI_PROFILE_FUNCTION();
 
-	{
-		OSVI_PROFILE_SCOPE("CAMERA");
-		m_CameraController.OnUpdate(ts);
-	}
+
+	m_CameraController.OnUpdate(ts);
+
 
 	{
 		OSVI_PROFILE_SCOPE("PREP");
@@ -60,6 +61,7 @@ void Sandbox2D::OnUpdate(ROUGE2::Timestep ts){
 }
 
 void Sandbox2D::OnImGuiRender(){
+	OSVI_PROFILE_FUNCTION();
 	ImGui::Begin("Settings");
 
 	ImGui::ColorEdit4("Square Color", glm::value_ptr(m_SquareColor));

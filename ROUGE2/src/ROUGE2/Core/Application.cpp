@@ -16,6 +16,8 @@ namespace ROUGE2 {
 
 	Application::Application()
 	{
+		OSVI_PROFILE_FUNCTION();
+
 		R2_CORE_ASSERT(!s_Instance, "Application already exists!");
 		s_Instance = this;
 		m_Window = std::unique_ptr<Window>(Window::Create());
@@ -33,11 +35,15 @@ namespace ROUGE2 {
 	{
 	}
 	void Application::PushLayer(Layer* layer) {
+		OSVI_PROFILE_FUNCTION();
+
 		m_LayerStack.PushLayer(layer);
 		layer->OnAttach();
 	}
 
 	void Application::PushOverlay(Layer* layer) {
+		OSVI_PROFILE_FUNCTION();
+
 		m_LayerStack.PushOverlay(layer);
 		layer->OnAttach();
 
@@ -62,23 +68,30 @@ namespace ROUGE2 {
 	}
 	void Application::Run()
 	{
+		OSVI_PROFILE_FUNCTION();
 		while (m_Running)
 		{
+			OSVI_PROFILE_SCOPE("Application::Run Loop")
 			float time = (float)glfwGetTime(); //later added to platform class
 			Timestep timestep = time - m_LastFrameTime;
 			m_LastFrameTime = time;
 
 			if (!m_Minimized) {
-				for (Layer* layer : m_LayerStack) {
-					layer->OnUpdate(timestep);
+				{
+					OSVI_PROFILE_SCOPE("LayerStack onUpdate")
+					for (Layer* layer : m_LayerStack) {
+						layer->OnUpdate(timestep);
+					}
 				}
+				m_ImGuiLayer->Begin();
+				{
+					OSVI_PROFILE_SCOPE("LayerStack OnImGuiRender")
+					for (Layer* layer : m_LayerStack) {
+						layer->OnImGuiRender();
+					}
+				}
+				m_ImGuiLayer->End();
 			}
-
-			m_ImGuiLayer->Begin();
-			for (Layer* layer : m_LayerStack) {
-				layer->OnImGuiRender();
-			}
-			m_ImGuiLayer->End();
 
 			m_Window->OnUpdate();
 		}
@@ -91,6 +104,8 @@ namespace ROUGE2 {
 
 	bool Application::OnWindowResize(WindowResizeEvent& e)
 	{
+		OSVI_PROFILE_FUNCTION();
+
 		if (e.GetWidth() == 0 || e.GetHeight() == 0) {
 			m_Minimized = true;
 			return false;

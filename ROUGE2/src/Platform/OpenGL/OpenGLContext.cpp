@@ -14,6 +14,8 @@ namespace ROUGE2 {
 	}
 
 	void OpenGLContext::Init(){
+		OSVI_PROFILE_FUNCTION();
+
 		glfwMakeContextCurrent(m_WindowHandle);
 		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 		R2_CORE_ASSERT(status, "Failed to initialize Glad!");
@@ -34,6 +36,7 @@ namespace ROUGE2 {
 	#endif
 
 	void OpenGLContext::SwapBuffers(){
+		OSVI_PROFILE_FUNCTION();
 
 		glfwSwapBuffers(m_WindowHandle);
 	}

@@ -20,14 +20,20 @@ namespace ROUGE2 {
 	}
 
 	WindowsWindow::WindowsWindow(const WindowProps& props){
+		OSVI_PROFILE_FUNCTION();
+
 		Init(props);
 	}
 
 	WindowsWindow::~WindowsWindow(){
+		OSVI_PROFILE_FUNCTION();
+
 		Shutdown();
 	}
 
 	void WindowsWindow::Init(const WindowProps& props){
+		OSVI_PROFILE_FUNCTION();
+
 		m_Data.Title = props.Title;
 		m_Data.Width = props.Width;
 		m_Data.Height = props.Height;
@@ -37,14 +43,17 @@ namespace ROUGE2 {
 
 		if (s_GLFWWindowCount == 0)
 		{
-			R2_CORE_LOG_INFO("Initializing GLFW");
+			OSVI_PROFILE_SCOPE("GLFW INIT");
 			int success = glfwInit();
 			R2_CORE_ASSERT(success, "Could not intialize GLFW");
 			glfwSetErrorCallback(GLFWErrorCallback);
 		}
 
-		m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
-		++s_GLFWWindowCount;
+		{
+			OSVI_PROFILE_SCOPE("GLFW CREATE");
+			m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
+			++s_GLFWWindowCount;
+		}
 
 		m_Context = CreateScope<OpenGLContext>(m_Window);
 		m_Context->Init();
@@ -132,8 +141,9 @@ namespace ROUGE2 {
 		});
 	}
 
-	void WindowsWindow::Shutdown()
-	{
+	void WindowsWindow::Shutdown(){
+		OSVI_PROFILE_FUNCTION();
+
 		glfwDestroyWindow(m_Window);
 		if (--s_GLFWWindowCount == 0) {
 			R2_CORE_LOG_INFO("Terminating GLFW");
@@ -141,8 +151,9 @@ namespace ROUGE2 {
 		}
 	}
 
-	void WindowsWindow::OnUpdate()
-	{
+	void WindowsWindow::OnUpdate(){
+		OSVI_PROFILE_FUNCTION();
+
 		glfwPollEvents();
 		m_Context->SwapBuffers();
 	}

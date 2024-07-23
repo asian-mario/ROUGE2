@@ -27,18 +27,26 @@ namespace ROUGE2 {
 
 
 	OpenGLVertexArray::OpenGLVertexArray(){
+		OSVI_PROFILE_FUNCTION();
+
 		glCreateVertexArrays(1, &m_RendererID);
 	}
 
 	OpenGLVertexArray::~OpenGLVertexArray(){
+		OSVI_PROFILE_FUNCTION();
+
 		glDeleteVertexArrays(1, &m_RendererID);
 	}
 
 	void OpenGLVertexArray::Bind() const{
+		OSVI_PROFILE_FUNCTION();
+
 		glBindVertexArray(m_RendererID);
 	}
 
 	void OpenGLVertexArray::Unbind() const{
+		OSVI_PROFILE_FUNCTION();
+
 		glBindVertexArray(0);
 	}
 
