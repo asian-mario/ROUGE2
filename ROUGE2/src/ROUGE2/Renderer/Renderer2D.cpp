@@ -86,16 +86,17 @@ namespace ROUGE2 {
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) * 
 			glm::scale(glm::mat4(1.0f), {size.x, size.y, 1.0f});
 		s_Data->TextureShader->SetMat4("u_Transform", transform);
+		s_Data->TextureShader->SetFloat("u_Tiling", 1.0f);
 
 
 		s_Data->VertexArray->Bind();
 		RenderCommand::DrawIndexed(s_Data->VertexArray);
 	}
-	void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const Ref<Texture2D>& texture, bool linear, const uint8_t texScale, const glm::vec4& tintCol){
-		DrawQuad({ position.x, position.y, 0.0f }, size, texture, linear, texScale, tintCol);
-	}
-
-	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture2D>& texture, bool linear, const uint8_t texScale, const glm::vec4& tintCol){
+	void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const Ref<Texture2D>& texture, bool linear, const glm::vec4& tintCol, float tileScale){
+		DrawQuad({ position.x, position.y, 0.0f }, size, texture, linear, tintCol, tileScale);
+	}																														
+																															
+	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture2D>& texture, bool linear, const glm::vec4& tintCol, float tileScale){
 		OSVI_PROFILE_FUNCTION();
 
 		s_Data->TextureShader->SetVec4("u_Color", tintCol);
@@ -105,7 +106,48 @@ namespace ROUGE2 {
 			glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
 
 		s_Data->TextureShader->SetMat4("u_Transform", transform);
-		s_Data->TextureShader->SetInt("u_TexSize", texScale);
+		s_Data->TextureShader->SetFloat("u_Tiling", tileScale);
+		texture->SetLinear(linear);
+
+		s_Data->VertexArray->Bind();
+		RenderCommand::DrawIndexed(s_Data->VertexArray);
+	}
+	void Renderer2D::DrawRotQuad(const glm::vec2& position, const glm::vec2& size, float rotation, const glm::vec4& color){
+		DrawRotQuad({ position.x, position.y, 0.0f }, size, rotation, color);
+	}
+	void Renderer2D::DrawRotQuad(const glm::vec3& position, const glm::vec2& size, float rotation, const glm::vec4& color){
+		OSVI_PROFILE_FUNCTION();
+
+		s_Data->TextureShader->SetVec4("u_Color", color);
+		s_Data->WhiteTexture->Bind();
+
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) *
+			glm::rotate(glm::mat4(1.0f), -(rotation), { 0.0f, 0.0f, 1.0f }) *
+			glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
+
+		s_Data->TextureShader->SetMat4("u_Transform", transform);
+		s_Data->TextureShader->SetFloat("u_Tiling", 1.0f);
+
+
+		s_Data->VertexArray->Bind();
+		RenderCommand::DrawIndexed(s_Data->VertexArray);
+	}
+	void Renderer2D::DrawRotQuad(const glm::vec2& position, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture, bool linear, const glm::vec4& tintCol, float tileScale){
+		DrawRotQuad({ position.x, position.y, 0.0f }, size, rotation, texture, linear, tintCol, tileScale);
+
+	}
+	void Renderer2D::DrawRotQuad(const glm::vec3& position, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture, bool linear, const glm::vec4& tintCol, float tileScale){
+		OSVI_PROFILE_FUNCTION();
+
+		s_Data->TextureShader->SetVec4("u_Color", tintCol);
+		texture->Bind();
+
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) *
+			glm::rotate(glm::mat4(1.0f), -(rotation), { 0.0f, 0.0f, 1.0f }) *
+			glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
+
+		s_Data->TextureShader->SetMat4("u_Transform", transform);
+		s_Data->TextureShader->SetFloat("u_Tiling", tileScale);
 		texture->SetLinear(linear);
 
 		s_Data->VertexArray->Bind();

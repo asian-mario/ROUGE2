@@ -19,8 +19,14 @@
     <Filter Include="src\ROUGE2\Core">
       <UniqueIdentifier>{08D75965-7462-C729-7D73-4A1EE97D232A}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\ROUGE2\Debug">
+      <UniqueIdentifier>{2613A110-120C-C062-3B3E-A5E727969F6E}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\ROUGE2\Events">
       <UniqueIdentifier>{94CA4D28-00E1-4BBE-4958-D7DFB5AD1C46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ROUGE2\FX">
+      <UniqueIdentifier>{FD17B5A3-69D8-30DA-3213-7A579E9275B6}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\ROUGE2\ImGui">
       <UniqueIdentifier>{DA7DFF10-C676-1E63-EFA8-03E8DB00FE6E}</UniqueIdentifier>
@@ -114,6 +120,9 @@
     <ClInclude Include="src\ROUGE2\Core\Window.h">
       <Filter>src\ROUGE2\Core</Filter>
     </ClInclude>
+    <ClInclude Include="src\ROUGE2\Debug\OSVI.h">
+      <Filter>src\ROUGE2\Debug</Filter>
+    </ClInclude>
     <ClInclude Include="src\ROUGE2\Events\ApplicationEvent.h">
       <Filter>src\ROUGE2\Events</Filter>
     </ClInclude>
@@ -125,6 +134,12 @@
     </ClInclude>
     <ClInclude Include="src\ROUGE2\Events\MouseEvent.h">
       <Filter>src\ROUGE2\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ROUGE2\FX\ParticleSystem.h">
+      <Filter>src\ROUGE2\FX</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ROUGE2\FX\Random.h">
+      <Filter>src\ROUGE2\FX</Filter>
     </ClInclude>
     <ClInclude Include="src\ROUGE2\ImGui\ImGuiLayer.h">
       <Filter>src\ROUGE2\ImGui</Filter>
@@ -145,6 +160,9 @@
       <Filter>src\ROUGE2\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\ROUGE2\Renderer\Renderer.h">
+      <Filter>src\ROUGE2\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ROUGE2\Renderer\Renderer2D.h">
       <Filter>src\ROUGE2\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\ROUGE2\Renderer\RendererAPI.h">
@@ -1413,8 +1431,6 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="src\ROUGE2\Renderer\Renderer2D.h" />
-    <ClInclude Include="src\ROUGE2\Debug\OSVI.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">
@@ -1453,6 +1469,12 @@
     <ClCompile Include="src\ROUGE2\Core\Log.cpp">
       <Filter>src\ROUGE2\Core</Filter>
     </ClCompile>
+    <ClCompile Include="src\ROUGE2\FX\ParticleSystem.cpp">
+      <Filter>src\ROUGE2\FX</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ROUGE2\FX\Random.cpp">
+      <Filter>src\ROUGE2\FX</Filter>
+    </ClCompile>
     <ClCompile Include="src\ROUGE2\ImGui\ImGuiBuild.cpp">
       <Filter>src\ROUGE2\ImGui</Filter>
     </ClCompile>
@@ -1474,6 +1496,9 @@
     <ClCompile Include="src\ROUGE2\Renderer\Renderer.cpp">
       <Filter>src\ROUGE2\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\ROUGE2\Renderer\Renderer2D.cpp">
+      <Filter>src\ROUGE2\Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\ROUGE2\Renderer\RendererAPI.cpp">
       <Filter>src\ROUGE2\Renderer</Filter>
     </ClCompile>
@@ -1492,6 +1517,5 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
-    <ClCompile Include="src\ROUGE2\Renderer\Renderer2D.cpp" />
   </ItemGroup>
 </Project>

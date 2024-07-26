@@ -28,3 +28,6 @@
 
 #include "ROUGE2/Renderer/OrthoCamera.h"
 
+#include "ROUGE2/FX/ParticleSystem.h"
+#include "ROUGE2/FX/Random.h"
+

@@ -180,6 +180,10 @@ namespace ROUGE2 {
 		UploadUniformInt(name, value);
 	}
 
+	void OpenGLShader::SetFloat(const std::string& name, float value){
+		UploadUniformVec(name, value);
+	}
+
 	void OpenGLShader::SetVec3(const std::string& name, const glm::vec3& value){
 		UploadUniformVec3(name, value);
 	}

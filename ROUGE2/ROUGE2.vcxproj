@@ -140,8 +140,6 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\ROUGE2\Debug\OSVI.h" />
-    <ClInclude Include="src\ROUGE2\Renderer\Renderer2D.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
@@ -162,10 +160,13 @@
     <ClInclude Include="src\ROUGE2\Core\MouseButtonCodes.h" />
     <ClInclude Include="src\ROUGE2\Core\Timestep.h" />
     <ClInclude Include="src\ROUGE2\Core\Window.h" />
+    <ClInclude Include="src\ROUGE2\Debug\OSVI.h" />
     <ClInclude Include="src\ROUGE2\Events\ApplicationEvent.h" />
     <ClInclude Include="src\ROUGE2\Events\Event.h" />
     <ClInclude Include="src\ROUGE2\Events\KeyEvent.h" />
     <ClInclude Include="src\ROUGE2\Events\MouseEvent.h" />
+    <ClInclude Include="src\ROUGE2\FX\ParticleSystem.h" />
+    <ClInclude Include="src\ROUGE2\FX\Random.h" />
     <ClInclude Include="src\ROUGE2\ImGui\ImGuiLayer.h" />
     <ClInclude Include="src\ROUGE2\Renderer\Buffer.h" />
     <ClInclude Include="src\ROUGE2\Renderer\GraphicsContext.h" />
@@ -173,6 +174,7 @@
     <ClInclude Include="src\ROUGE2\Renderer\OrthographicCameraController.h" />
     <ClInclude Include="src\ROUGE2\Renderer\RenderCommand.h" />
     <ClInclude Include="src\ROUGE2\Renderer\Renderer.h" />
+    <ClInclude Include="src\ROUGE2\Renderer\Renderer2D.h" />
     <ClInclude Include="src\ROUGE2\Renderer\RendererAPI.h" />
     <ClInclude Include="src\ROUGE2\Renderer\Shader.h" />
     <ClInclude Include="src\ROUGE2\Renderer\Texture.h" />
@@ -597,7 +599,6 @@
     <ClInclude Include="vendor\stb_image\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\ROUGE2\Renderer\Renderer2D.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp" />
@@ -610,6 +611,8 @@
     <ClCompile Include="src\ROUGE2\Core\Layer.cpp" />
     <ClCompile Include="src\ROUGE2\Core\LayerStack.cpp" />
     <ClCompile Include="src\ROUGE2\Core\Log.cpp" />
+    <ClCompile Include="src\ROUGE2\FX\ParticleSystem.cpp" />
+    <ClCompile Include="src\ROUGE2\FX\Random.cpp" />
     <ClCompile Include="src\ROUGE2\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\ROUGE2\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\ROUGE2\Renderer\Buffer.cpp" />
@@ -617,6 +620,7 @@
     <ClCompile Include="src\ROUGE2\Renderer\OrthographicCameraController.cpp" />
     <ClCompile Include="src\ROUGE2\Renderer\RenderCommand.cpp" />
     <ClCompile Include="src\ROUGE2\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\ROUGE2\Renderer\Renderer2D.cpp" />
     <ClCompile Include="src\ROUGE2\Renderer\RendererAPI.cpp" />
     <ClCompile Include="src\ROUGE2\Renderer\Shader.cpp" />
     <ClCompile Include="src\ROUGE2\Renderer\Texture.cpp" />
