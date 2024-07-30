@@ -71,21 +71,21 @@ namespace ROUGE2 {
 		OSVI_PROFILE_FUNCTION();
 		while (m_Running)
 		{
-			OSVI_PROFILE_SCOPE("Application::Run Loop")
+			OSVI_PROFILE_SCOPE("Application::Run Loop");
 			float time = (float)glfwGetTime(); //later added to platform class
 			Timestep timestep = time - m_LastFrameTime;
 			m_LastFrameTime = time;
 
 			if (!m_Minimized) {
 				{
-					OSVI_PROFILE_SCOPE("LayerStack onUpdate")
+					OSVI_PROFILE_SCOPE("LayerStack onUpdate");
 					for (Layer* layer : m_LayerStack) {
 						layer->OnUpdate(timestep);
 					}
 				}
 				m_ImGuiLayer->Begin();
 				{
-					OSVI_PROFILE_SCOPE("LayerStack OnImGuiRender")
+					OSVI_PROFILE_SCOPE("LayerStack OnImGuiRender");
 					for (Layer* layer : m_LayerStack) {
 						layer->OnImGuiRender();
 					}

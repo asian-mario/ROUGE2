@@ -26,7 +26,7 @@ public:
 
 		
 		ROUGE2::Ref<ROUGE2::VertexBuffer> vertexBuffer;
-		vertexBuffer.reset(ROUGE2::VertexBuffer::Create(vertices, sizeof(vertices)));
+		vertexBuffer = (ROUGE2::VertexBuffer::Create(vertices, sizeof(vertices)));
 
 		ROUGE2::BufferLayout layout = {
 			{ ROUGE2::ShaderDataType::Vec3, "a_Position" },
@@ -38,7 +38,7 @@ public:
 
 		uint32_t indices[3] = { 0, 1, 2 };
 		ROUGE2::Ref<ROUGE2::IndexBuffer> indexBuffer;
-		indexBuffer.reset(ROUGE2::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
+		indexBuffer = (ROUGE2::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
 		m_VertexArray->SetIndexBuffer(indexBuffer);
 
 
@@ -53,7 +53,7 @@ public:
 		};
 
 		ROUGE2::Ref<ROUGE2::VertexBuffer> squareVB;
-		squareVB.reset(ROUGE2::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
+		squareVB = (ROUGE2::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
 		squareVB->SetLayout({
 			{ ROUGE2::ShaderDataType::Vec3, "a_Position" },
 			{ ROUGE2::ShaderDataType::Vec2, "a_TexCoord" }
@@ -62,7 +62,7 @@ public:
 
 		uint32_t squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
 		ROUGE2::Ref<ROUGE2::IndexBuffer> squareIB;
-		squareIB.reset(ROUGE2::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
+		squareIB = (ROUGE2::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
 		m_SquareVA->SetIndexBuffer(squareIB);
 
 		std::string vertexSrc = R"(

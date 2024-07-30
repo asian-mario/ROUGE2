@@ -21,14 +21,6 @@ void Sandbox2D::OnAttach(){
 		m_TestBGTex = ROUGE2::Texture2D::Create("assets/textures/Checkerboard.png");
 	}
 
-	// Smoke
-	m_SmokeParticle.Position = { 0.0f, 0.0f };
-	m_SmokeParticle.Velocity = { 0.0f, 0.0f }, m_SmokeParticle.velocityVariation = { 4.0f, 2.0f };
-	m_SmokeParticle.sizeBegin = 0.02f, m_SmokeParticle.sizeEnd = 0.0f, m_SmokeParticle.sizeVariation = 0.15f;
-	m_SmokeParticle.ColorBegin = { 0.8f, 0.8f, 0.8f, 1.0f };
-	m_SmokeParticle.ColorEnd = { 0.6f, 0.6f, 0.6f, 1.0f };
-	m_SmokeParticle.LifeTime = 4.0f;
-
 	// Flames
 	m_EngineParticle.Position = { 0.0f, 0.0f };
 	m_EngineParticle.Velocity = { 0.0f, 0.0f }, m_EngineParticle.velocityVariation = { 3.0f, 1.0f };
@@ -49,7 +41,7 @@ void Sandbox2D::OnUpdate(ROUGE2::Timestep ts){
 
 
 	m_CameraController.OnUpdate(ts);
-	m_ParticleSystem.OnUpdate(ts);
+	//m_ParticleSystem.OnUpdate(ts);
 
 
 	{
@@ -65,17 +57,16 @@ void Sandbox2D::OnUpdate(ROUGE2::Timestep ts){
 		//For texture objects theres going to be an optional "tint" -> set to {1.0f, 1.0f, 1.0f, 1.0f} for base texture color o/  glm::vec4(1.0f)
 		//ROUGE2::Renderer2D::DrawRotQuad({ 0.0f, 0.0f }, { 1.0f, 1.0f }, glm::radians(45.0f), m_SquareColor);
 		ROUGE2::Renderer2D::DrawQuad({ 1.0f, -0.5f }, { 0.8f, 0.8f }, { 0.2f, 0.7f, 0.1f, 1.0f });
-		ROUGE2::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.5f }, { 10.0f, 10.0f }, m_TestBGTex, false, glm::vec4(1.0f), m_TileScale);
+		//ROUGE2::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.5f }, { 10.0f, 10.0f }, m_TestBGTex, false, glm::vec4(1.0f), m_TileScale);
 
 		//------------------------------TRANSPARENT------------------------------
 		//TODO: fix false blending issue if transparent object is rendered before a BG object thats behind it
 		//Just render it in front for now. Too bad!
-		ROUGE2::Renderer2D::DrawQuad({ 0.3f, 1.0f, 0.1f }, { 0.8f, 0.8f }, m_Texture, true, m_TintColor);
+		//ROUGE2::Renderer2D::DrawQuad({ 0.3f, 1.0f, 0.1f }, { 0.8f, 0.8f }, m_Texture, true, m_TintColor);
 
 		
-		m_ParticleSystem.Emit(m_EngineParticle);
-		m_ParticleSystem.Emit(m_SmokeParticle);
-		m_ParticleSystem.OnRender();
+		//m_ParticleSystem.Emit(m_EngineParticle);
+		//m_ParticleSystem.OnRender();
 		
 	}
 
