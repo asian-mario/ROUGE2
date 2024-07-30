@@ -13,7 +13,8 @@ namespace ROUGE2 {
 		glm::vec3 Position;
 		glm::vec4 Color;
 		glm::vec2 TexCoord;
-		// TODO: texid
+		float TexIndex;
+		float TilingFactor;
 	};
 
 
@@ -22,6 +23,7 @@ namespace ROUGE2 {
 		const uint32_t MaxQuads = 10000;
 		const uint32_t MaxVertices = MaxQuads * 4;
 		const uint32_t MaxIndices = MaxQuads * 6;
+		static const uint32_t MaxTextureSlots = 32;
 
 		Ref<VertexArray> QuadVertexArray;
 		Ref<VertexBuffer> QuadVertexBuffer;
@@ -31,6 +33,10 @@ namespace ROUGE2 {
 		uint32_t QuadIndexCount = 0;
 		QuadVertex* QuadVertexBufferBase = nullptr;
 		QuadVertex* QuadVertexBufferPtr = nullptr;
+
+		std::array<Ref<Texture2D>, MaxTextureSlots> TextureSlots;
+		uint32_t TextureSlotIndex = 1; // 0 is reserved for white texture -> flatcol
+
 	};
 
 	static Renderer2DData s_Data;
@@ -45,7 +51,9 @@ namespace ROUGE2 {
 		s_Data.QuadVertexBuffer->SetLayout({
 			{ ShaderDataType::Vec3, "a_Position" },
 			{ ShaderDataType::Vec4, "a_Color" },
-			{ ShaderDataType::Vec2, "a_TexCoord" }
+			{ ShaderDataType::Vec2, "a_TexCoord" },
+			{ ShaderDataType::Vec, "a_TexIndex" },
+			{ ShaderDataType::Vec, "a_TilingFactor" }
 			});
 		s_Data.QuadVertexArray->AddVertexBuffer(s_Data.QuadVertexBuffer);
 
@@ -76,9 +84,16 @@ namespace ROUGE2 {
 		uint32_t whiteTextureData = 0xffffffff;
 		s_Data.WhiteTexture->SetData(&whiteTextureData, sizeof(uint32_t));
 
+		int32_t samplers[s_Data.MaxTextureSlots];
+		for (uint32_t i = 0; i < s_Data.MaxTextureSlots; i++)
+			samplers[i] = i;
+
 		s_Data.TextureShader = Shader::Create("assets/shaders/texture.glsl");
 		s_Data.TextureShader->Bind();
-		s_Data.TextureShader->SetInt("u_Texture", 0);
+		s_Data.TextureShader->SetIntArray("u_Textures", samplers, s_Data.MaxTextureSlots);
+
+		// Set all texture slots to 0
+		s_Data.TextureSlots[0] = s_Data.WhiteTexture;
 	}
 
 	void Renderer2D::Shutdown(){
@@ -94,6 +109,8 @@ namespace ROUGE2 {
 		s_Data.QuadIndexCount = 0;
 		s_Data.QuadVertexBufferPtr = s_Data.QuadVertexBufferBase;
 
+		s_Data.TextureSlotIndex = 1;
+
 	}
 
 	void Renderer2D::EndScene()
@@ -107,6 +124,9 @@ namespace ROUGE2 {
 	}
 
 	void Renderer2D::Flush(){
+		for (uint32_t i = 0; i < s_Data.TextureSlotIndex; i++)
+			s_Data.TextureSlots[i]->Bind(i);
+		//Bind all textures
 		RenderCommand::DrawIndexed(s_Data.QuadVertexArray, s_Data.QuadIndexCount);
 	}
 
@@ -117,28 +137,41 @@ namespace ROUGE2 {
 	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color) {
 		OSVI_PROFILE_FUNCTION();
 
+		const float texIndex = 0.0f; // White Texture
+		const float tileScale = 1.0f;
+
 		s_Data.QuadVertexBufferPtr->Position = position;
 		s_Data.QuadVertexBufferPtr->Color = color;
 		s_Data.QuadVertexBufferPtr->TexCoord = { 0.0f, 0.0f };
+		s_Data.QuadVertexBufferPtr->TexIndex = texIndex;
+		s_Data.QuadVertexBufferPtr->TilingFactor = tileScale;
 		s_Data.QuadVertexBufferPtr++;
 
 		s_Data.QuadVertexBufferPtr->Position = { position.x + size.x, position.y, 0.0f };
 		s_Data.QuadVertexBufferPtr->Color = color;
 		s_Data.QuadVertexBufferPtr->TexCoord = { 1.0f, 0.0f };
+		s_Data.QuadVertexBufferPtr->TexIndex = texIndex;
+		s_Data.QuadVertexBufferPtr->TilingFactor = tileScale;
 		s_Data.QuadVertexBufferPtr++;
 
 		s_Data.QuadVertexBufferPtr->Position = { position.x + size.x, position.y + size.y, 0.0f };
 		s_Data.QuadVertexBufferPtr->Color = color;
 		s_Data.QuadVertexBufferPtr->TexCoord = { 1.0f, 1.0f };
+		s_Data.QuadVertexBufferPtr->TexIndex = texIndex;
+		s_Data.QuadVertexBufferPtr->TilingFactor = tileScale;
 		s_Data.QuadVertexBufferPtr++;
 
 		s_Data.QuadVertexBufferPtr->Position = { position.x, position.y + size.y, 0.0f };
 		s_Data.QuadVertexBufferPtr->Color = color;
 		s_Data.QuadVertexBufferPtr->TexCoord = { 0.0f, 1.0f };
+		s_Data.QuadVertexBufferPtr->TexIndex = texIndex;
+		s_Data.QuadVertexBufferPtr->TilingFactor = tileScale;
 		s_Data.QuadVertexBufferPtr++;
 
 		s_Data.QuadIndexCount += 6;
-		/*s_Data.TextureShader->SetVec4("u_Color", color);
+
+#if OLD_PATH
+		s_Data.TextureShader->SetVec4("u_Color", color);
 		s_Data.WhiteTexture->Bind();
 
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) * 
@@ -148,15 +181,65 @@ namespace ROUGE2 {
 
 
 		s_Data.QuadQuadVertexArray->Bind();
-		RenderCommand::DrawIndexed(s_Data.QuadQuadVertexArray);*/
+		RenderCommand::DrawIndexed(s_Data.QuadQuadVertexArray);
+#endif
 	}
-	void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const Ref<Texture2D>& texture, bool linear, const glm::vec4& tintCol, float tileScale){
-		DrawQuad({ position.x, position.y, 0.0f }, size, texture, linear, tintCol, tileScale);
+	void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const Ref<Texture2D>& texture, const glm::vec4& tintCol, float tileScale){
+		DrawQuad({ position.x, position.y, 0.0f }, size, texture, tintCol, tileScale);
 	}																														
 																															
-	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture2D>& texture, bool linear, const glm::vec4& tintCol, float tileScale){
+	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture2D>& texture, const glm::vec4& tintCol, float tileScale){
 		OSVI_PROFILE_FUNCTION();
 
+		constexpr glm::vec4 color = glm::vec4(1.0f);
+
+		float textureIndex = 0.0f;
+		for (uint32_t i = 1; i < s_Data.TextureSlotIndex; i++)
+		{
+			if (*s_Data.TextureSlots[i].get() == *texture.get())
+			{
+				textureIndex = (float)i;
+				break;
+			}
+		}
+
+		if (textureIndex == 0.0f)
+		{
+			textureIndex = (float)s_Data.TextureSlotIndex;
+			s_Data.TextureSlots[s_Data.TextureSlotIndex] = texture;
+			s_Data.TextureSlotIndex++;
+	}
+
+		s_Data.QuadVertexBufferPtr->Position = position;
+		s_Data.QuadVertexBufferPtr->Color = color;
+		s_Data.QuadVertexBufferPtr->TexCoord = { 0.0f, 0.0f };
+		s_Data.QuadVertexBufferPtr->TexIndex = textureIndex;
+		s_Data.QuadVertexBufferPtr->TilingFactor = tileScale;
+		s_Data.QuadVertexBufferPtr++;
+
+		s_Data.QuadVertexBufferPtr->Position = { position.x + size.x, position.y, 0.0f };
+		s_Data.QuadVertexBufferPtr->Color = color;
+		s_Data.QuadVertexBufferPtr->TexCoord = { 1.0f, 0.0f };
+		s_Data.QuadVertexBufferPtr->TexIndex = textureIndex;
+		s_Data.QuadVertexBufferPtr->TilingFactor = tileScale;
+		s_Data.QuadVertexBufferPtr++;
+
+		s_Data.QuadVertexBufferPtr->Position = { position.x + size.x, position.y + size.y, 0.0f };
+		s_Data.QuadVertexBufferPtr->Color = color;
+		s_Data.QuadVertexBufferPtr->TexCoord = { 1.0f, 1.0f };
+		s_Data.QuadVertexBufferPtr->TexIndex = textureIndex;
+		s_Data.QuadVertexBufferPtr->TilingFactor = tileScale;
+		s_Data.QuadVertexBufferPtr++;
+
+		s_Data.QuadVertexBufferPtr->Position = { position.x, position.y + size.y, 0.0f };
+		s_Data.QuadVertexBufferPtr->Color = color;
+		s_Data.QuadVertexBufferPtr->TexCoord = { 0.0f, 1.0f };
+		s_Data.QuadVertexBufferPtr->TexIndex = textureIndex;
+		s_Data.QuadVertexBufferPtr->TilingFactor = tileScale;
+		s_Data.QuadVertexBufferPtr++;
+
+		s_Data.QuadIndexCount += 6;
+#if OLD_PATH
 		s_Data.TextureShader->SetVec4("u_Color", tintCol);
 		texture->Bind();
 
@@ -169,6 +252,7 @@ namespace ROUGE2 {
 
 		s_Data.QuadVertexArray->Bind();
 		RenderCommand::DrawIndexed(s_Data.QuadVertexArray);
+#endif
 	}
 	void Renderer2D::DrawRotQuad(const glm::vec2& position, const glm::vec2& size, float rotation, const glm::vec4& color){
 		DrawRotQuad({ position.x, position.y, 0.0f }, size, rotation, color);
@@ -190,11 +274,11 @@ namespace ROUGE2 {
 		s_Data.QuadVertexArray->Bind();
 		RenderCommand::DrawIndexed(s_Data.QuadVertexArray);
 	}
-	void Renderer2D::DrawRotQuad(const glm::vec2& position, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture, bool linear, const glm::vec4& tintCol, float tileScale){
-		DrawRotQuad({ position.x, position.y, 0.0f }, size, rotation, texture, linear, tintCol, tileScale);
+	void Renderer2D::DrawRotQuad(const glm::vec2& position, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture, const glm::vec4& tintCol, float tileScale){
+		DrawRotQuad({ position.x, position.y, 0.0f }, size, rotation, texture, tintCol, tileScale);
 
 	}
-	void Renderer2D::DrawRotQuad(const glm::vec3& position, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture, bool linear, const glm::vec4& tintCol, float tileScale){
+	void Renderer2D::DrawRotQuad(const glm::vec3& position, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture,  const glm::vec4& tintCol, float tileScale){
 		OSVI_PROFILE_FUNCTION();
 
 		s_Data.TextureShader->SetVec4("u_Color", tintCol);
@@ -206,7 +290,6 @@ namespace ROUGE2 {
 
 		s_Data.TextureShader->SetMat4("u_Transform", transform);
 		s_Data.TextureShader->SetFloat("u_Tiling", tileScale);
-		texture->SetLinear(linear);
 
 		s_Data.QuadVertexArray->Bind();
 		RenderCommand::DrawIndexed(s_Data.QuadVertexArray);

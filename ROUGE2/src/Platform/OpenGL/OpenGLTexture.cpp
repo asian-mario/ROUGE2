@@ -26,7 +26,7 @@ namespace ROUGE2 {
 
     }
 
-    OpenGLTexture2D::OpenGLTexture2D(const std::string& path)
+    OpenGLTexture2D::OpenGLTexture2D(const std::string& path, bool isLinear)
 		:m_Path(path)
 	{
         OSVI_PROFILE_FUNCTION();
@@ -63,6 +63,15 @@ namespace ROUGE2 {
 
         glCreateTextures(GL_TEXTURE_2D, 1, &m_RendererID);
         glTextureStorage2D(m_RendererID, 1, internalFormat, m_Width, m_Height);
+
+        if (isLinear) {
+            glTextureParameteri(m_RendererID, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+            glTextureParameteri(m_RendererID, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        }
+        else {
+            glTextureParameteri(m_RendererID, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+            glTextureParameteri(m_RendererID, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+        }
 
         glTextureParameteri(m_RendererID, GL_TEXTURE_WRAP_S, GL_REPEAT);
         glTextureParameteri(m_RendererID, GL_TEXTURE_WRAP_T, GL_REPEAT);

@@ -137,9 +137,9 @@ public:
 
 		auto textureShader = m_ShaderLibrary.Load("assets/shaders/texture.glsl");
 
-		m_TestBGTex = (ROUGE2::Texture2D::Create("assets/textures/Checkerboard.png"));
+		m_TestBGTex = (ROUGE2::Texture2D::Create("assets/textures/Checkerboard.png", false));
 
-		m_Texture = (ROUGE2::Texture2D::Create("assets/textures/ROUGE.png"));
+		m_Texture = (ROUGE2::Texture2D::Create("assets/textures/ROUGE.png", true));
 
 		std::dynamic_pointer_cast<ROUGE2::OpenGLShader>(textureShader)->Bind();
 		std::dynamic_pointer_cast<ROUGE2::OpenGLShader>(textureShader)->UploadUniformInt("u_Texture", 0);

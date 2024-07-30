@@ -17,8 +17,8 @@ void Sandbox2D::OnAttach(){
 	
 	{
 		OSVI_PROFILE_SCOPE("ON ATTACH");
-		m_Texture = ROUGE2::Texture2D::Create("assets/textures/ROUGE.png");
-		m_TestBGTex = ROUGE2::Texture2D::Create("assets/textures/Checkerboard.png");
+		m_Texture = ROUGE2::Texture2D::Create("assets/textures/ROUGE.png", true);
+		m_TestBGTex = ROUGE2::Texture2D::Create("assets/textures/Checkerboard.png", false);
 	}
 
 	// Flames
@@ -57,12 +57,12 @@ void Sandbox2D::OnUpdate(ROUGE2::Timestep ts){
 		//For texture objects theres going to be an optional "tint" -> set to {1.0f, 1.0f, 1.0f, 1.0f} for base texture color o/  glm::vec4(1.0f)
 		//ROUGE2::Renderer2D::DrawRotQuad({ 0.0f, 0.0f }, { 1.0f, 1.0f }, glm::radians(45.0f), m_SquareColor);
 		ROUGE2::Renderer2D::DrawQuad({ 1.0f, -0.5f }, { 0.8f, 0.8f }, { 0.2f, 0.7f, 0.1f, 1.0f });
-		//ROUGE2::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.5f }, { 10.0f, 10.0f }, m_TestBGTex, false, glm::vec4(1.0f), m_TileScale);
+		ROUGE2::Renderer2D::DrawQuad({ -5.0f, -5.0f, -0.5f }, { 10.0f, 10.0f }, m_TestBGTex, glm::vec4(1.0f), m_TileScale);
 
 		//------------------------------TRANSPARENT------------------------------
 		//TODO: fix false blending issue if transparent object is rendered before a BG object thats behind it
 		//Just render it in front for now. Too bad!
-		//ROUGE2::Renderer2D::DrawQuad({ 0.3f, 1.0f, 0.1f }, { 0.8f, 0.8f }, m_Texture, true, m_TintColor);
+		ROUGE2::Renderer2D::DrawQuad({ 0.3f, 1.0f, 0.1f }, { 0.8f, 0.8f }, m_Texture, m_TintColor);
 
 		
 		//m_ParticleSystem.Emit(m_EngineParticle);
