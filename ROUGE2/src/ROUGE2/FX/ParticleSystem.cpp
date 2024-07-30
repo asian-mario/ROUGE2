@@ -16,7 +16,7 @@ namespace ROUGE2 {
 		Particle& particle = m_ParticlePool[m_PoolIndex];
 		particle.Active = true;
 		particle.Position = particleProps.Position;
-		particle.Rotation = Random::Float() * 2.0f * glm::pi<float>();
+		particle.Rotation = Random::Float() * 40.0f * glm::pi<float>();
 
 		//Particle Velocity:
 		particle.Velocity = particleProps.Velocity;

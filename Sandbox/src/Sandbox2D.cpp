@@ -24,7 +24,7 @@ void Sandbox2D::OnAttach(){
 	// Flames
 	m_EngineParticle.Position = { 0.0f, 0.0f };
 	m_EngineParticle.Velocity = { 0.0f, 0.0f }, m_EngineParticle.velocityVariation = { 3.0f, 1.0f };
-	m_EngineParticle.sizeBegin = 0.035f, m_EngineParticle.sizeEnd = 0.0f, m_EngineParticle.sizeVariation = 0.3f;
+	m_EngineParticle.sizeBegin = 0.02f, m_EngineParticle.sizeEnd = 0.0f, m_EngineParticle.sizeVariation = 0.3f;
 	m_EngineParticle.ColorBegin = { 254 / 255.0f, 109 / 255.0f, 41 / 255.0f, 1.0f };
 	m_EngineParticle.ColorEnd = { 254 / 255.0f, 212 / 255.0f, 123 / 255.0f , 1.0f };
 	m_EngineParticle.LifeTime = 1.0f;
@@ -41,7 +41,7 @@ void Sandbox2D::OnUpdate(ROUGE2::Timestep ts){
 
 
 	m_CameraController.OnUpdate(ts);
-	//m_ParticleSystem.OnUpdate(ts);
+	m_ParticleSystem.OnUpdate(ts);
 
 
 	{
@@ -54,10 +54,15 @@ void Sandbox2D::OnUpdate(ROUGE2::Timestep ts){
 
 	{
 		OSVI_PROFILE_SCOPE("RENDER DRAW");
+		static float rotation = 0.0f;
+		rotation += ts * 20.0f;
+
 		//For texture objects theres going to be an optional "tint" -> set to {1.0f, 1.0f, 1.0f, 1.0f} for base texture color o/  glm::vec4(1.0f)
-		//ROUGE2::Renderer2D::DrawRotQuad({ 0.0f, 0.0f }, { 1.0f, 1.0f }, glm::radians(45.0f), m_SquareColor);
-		ROUGE2::Renderer2D::DrawQuad({ 1.0f, -0.5f }, { 0.8f, 0.8f }, { 0.2f, 0.7f, 0.1f, 1.0f });
-		ROUGE2::Renderer2D::DrawQuad({ -5.0f, -5.0f, -0.5f }, { 10.0f, 10.0f }, m_TestBGTex, glm::vec4(1.0f), m_TileScale);
+		ROUGE2::Renderer2D::DrawRotQuad({ 0.0f, 0.0f }, { 1.0f, 1.0f }, rotation , m_SquareColor);
+		ROUGE2::Renderer2D::DrawRotQuad({ -1.5f, 0.0f }, { 1.0f, 1.0f }, rotation, {0.8f, 0.2f, 0.0f, 1.0f});
+
+		ROUGE2::Renderer2D::DrawQuad({ 1.5f, -0.5f }, { 0.8f, 0.8f }, { 0.2f, 0.7f, 0.1f, 1.0f });
+		ROUGE2::Renderer2D::DrawQuad({ -1.0f, -1.0f, -0.5f }, { 10.0f, 10.0f }, m_TestBGTex, glm::vec4(1.0f), m_TileScale);
 
 		//------------------------------TRANSPARENT------------------------------
 		//TODO: fix false blending issue if transparent object is rendered before a BG object thats behind it
@@ -65,8 +70,8 @@ void Sandbox2D::OnUpdate(ROUGE2::Timestep ts){
 		ROUGE2::Renderer2D::DrawQuad({ 0.3f, 1.0f, 0.1f }, { 0.8f, 0.8f }, m_Texture, m_TintColor);
 
 		
-		//m_ParticleSystem.Emit(m_EngineParticle);
-		//m_ParticleSystem.OnRender();
+		m_ParticleSystem.Emit(m_EngineParticle);
+		m_ParticleSystem.OnRender();
 		
 	}
 
