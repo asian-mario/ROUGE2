@@ -120,6 +120,9 @@
     <ClInclude Include="src\ROUGE2\Core\Window.h">
       <Filter>src\ROUGE2\Core</Filter>
     </ClInclude>
+    <ClInclude Include="src\ROUGE2\Debug\OSVI.h">
+      <Filter>src\ROUGE2\Debug</Filter>
+    </ClInclude>
     <ClInclude Include="src\ROUGE2\Events\ApplicationEvent.h">
       <Filter>src\ROUGE2\Events</Filter>
     </ClInclude>
@@ -1428,7 +1431,6 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="src\ROUGE2\Debug\OSVI.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">

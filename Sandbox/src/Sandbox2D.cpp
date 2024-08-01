@@ -22,7 +22,7 @@ void Sandbox2D::OnAttach(){
 	}
 
 	// Flames
-	m_EngineParticle.Position = { 0.0f, 0.0f };
+	m_EngineParticle.Position = { 1.5f, 0.8f };
 	m_EngineParticle.Velocity = { 0.0f, 0.0f }, m_EngineParticle.velocityVariation = { 3.0f, 1.0f };
 	m_EngineParticle.sizeBegin = 0.02f, m_EngineParticle.sizeEnd = 0.0f, m_EngineParticle.sizeVariation = 0.3f;
 	m_EngineParticle.ColorBegin = { 254 / 255.0f, 109 / 255.0f, 41 / 255.0f, 1.0f };
@@ -43,7 +43,7 @@ void Sandbox2D::OnUpdate(ROUGE2::Timestep ts){
 	m_CameraController.OnUpdate(ts);
 	m_ParticleSystem.OnUpdate(ts);
 
-
+	ROUGE2::Renderer2D::ResetStats();
 	{
 		OSVI_PROFILE_SCOPE("PREP");
 		ROUGE2::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
@@ -53,26 +53,36 @@ void Sandbox2D::OnUpdate(ROUGE2::Timestep ts){
 	}
 
 	{
-		OSVI_PROFILE_SCOPE("RENDER DRAW");
 		static float rotation = 0.0f;
 		rotation += ts * 20.0f;
+		OSVI_PROFILE_SCOPE("RENDER DRAW");
 
+		ROUGE2::Renderer2D::BeginScene(m_CameraController.GetCamera());
 		//For texture objects theres going to be an optional "tint" -> set to {1.0f, 1.0f, 1.0f, 1.0f} for base texture color o/  glm::vec4(1.0f)
 		ROUGE2::Renderer2D::DrawRotQuad({ 0.0f, 0.0f }, { 1.0f, 1.0f }, rotation , m_SquareColor);
 		ROUGE2::Renderer2D::DrawRotQuad({ -1.5f, 0.0f }, { 1.0f, 1.0f }, rotation, {0.8f, 0.2f, 0.0f, 1.0f});
 
 		ROUGE2::Renderer2D::DrawQuad({ 1.5f, -0.5f }, { 0.8f, 0.8f }, { 0.2f, 0.7f, 0.1f, 1.0f });
-		ROUGE2::Renderer2D::DrawQuad({ -1.0f, -1.0f, -0.5f }, { 10.0f, 10.0f }, m_TestBGTex, glm::vec4(1.0f), m_TileScale);
+		ROUGE2::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.5f }, { 20.0f, 20.0f }, m_TestBGTex, glm::vec4(1.0f), m_TileScale);
 
 		//------------------------------TRANSPARENT------------------------------
 		//TODO: fix false blending issue if transparent object is rendered before a BG object thats behind it
 		//Just render it in front for now. Too bad!
-		ROUGE2::Renderer2D::DrawQuad({ 0.3f, 1.0f, 0.1f }, { 0.8f, 0.8f }, m_Texture, m_TintColor);
+		ROUGE2::Renderer2D::DrawRotQuad({ 0.3f, 1.0f, 0.1f }, { 0.8f, 0.8f }, 45.0f, m_Texture, m_TintColor);
+		
+		//m_ParticleSystem.Emit(m_EngineParticle);
+		//m_ParticleSystem.OnRender();
 
-		
-		m_ParticleSystem.Emit(m_EngineParticle);
-		m_ParticleSystem.OnRender();
-		
+		ROUGE2::Renderer2D::EndScene();
+
+		/*ROUGE2::Renderer2D::BeginScene(m_CameraController.GetCamera());
+		for (float y = -5.0f; y < 5.0f; y += 0.5f){
+			for (float x = -5.0f; x < 5.0f; x += 0.5f){
+				glm::vec4 color = { (x + 5.0f) / 10.0f, 0.4f, (y + 5.0f) / 10.0f, 0.7f };
+				ROUGE2::Renderer2D::DrawQuad({ x, y, 1.0f }, { 0.45f, 0.45f }, color);
+			}
+		}
+		ROUGE2::Renderer2D::EndScene();*/
 	}
 
 
@@ -81,6 +91,7 @@ void Sandbox2D::OnUpdate(ROUGE2::Timestep ts){
 
 void Sandbox2D::OnImGuiRender(){
 	OSVI_PROFILE_FUNCTION();
+	//SETTINGS
 	ImGui::Begin("Settings");
 
 	ImGui::ColorEdit4("Square Color", glm::value_ptr(m_SquareColor));
@@ -95,6 +106,19 @@ void Sandbox2D::OnImGuiRender(){
 
 	ImGui::End();
 
+	//STATISTICS WINDOW
+	ImGui::Begin("Statistics");
+
+	auto stats = ROUGE2::Renderer2D::GetStats();
+	ImGui::Text("Renderer2D Stats:");
+	ImGui::Text("Draw Calls : %d", stats.DrawCalls);
+	ImGui::Text("Quad Count : %d", stats.QuadCount);
+
+	ImGui::Text("Scene Vertices : %d", stats.GetTotalVertexCount());
+	ImGui::Text("Scene Indices : %d", stats.GetTotalIndexCount());
+
+
+	ImGui::End();
 }
 
 void Sandbox2D::OnEvent(ROUGE2::Event& e){
