@@ -13,8 +13,8 @@ namespace ROUGE2 {
 			case ShaderDataType::Vec2:   return 4 * 2;
 			case ShaderDataType::Vec3:   return 4 * 3;
 			case ShaderDataType::Vec4:   return 4 * 4;
-			case ShaderDataType::Mat3:     return 4 * 3 * 3;
-			case ShaderDataType::Mat4:     return 4 * 4 * 4;
+			case ShaderDataType::Mat3:    return 3; // 3* float3
+			case ShaderDataType::Mat4:    return 4; // 4* float4
 			case ShaderDataType::VecInt:      return 4;
 			case ShaderDataType::VecInt2:     return 4 * 2;
 			case ShaderDataType::VecInt3:     return 4 * 3;

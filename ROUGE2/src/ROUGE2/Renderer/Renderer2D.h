@@ -2,6 +2,8 @@
 #include "OrthoCamera.h"
 #include "Texture.h"
 
+#include "ROUGE2/Core/Timestep.h"
+
 namespace ROUGE2 {
 	class Renderer2D {
 	public:

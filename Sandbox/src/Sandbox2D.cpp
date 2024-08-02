@@ -6,6 +6,9 @@
 
 #include "Platform/OpenGL/OpenGLShader.h"
 
+#define IMGUI
+#define GRADIENT_TEST
+#define PARTICLE_TEST
 
 Sandbox2D::Sandbox2D()
 	: Layer("Sandbox2D"), m_CameraController(1280.0f / 720.0f)
@@ -43,6 +46,10 @@ void Sandbox2D::OnUpdate(ROUGE2::Timestep ts){
 	m_CameraController.OnUpdate(ts);
 	m_ParticleSystem.OnUpdate(ts);
 
+	//why does the test program run at 140 fps w/ no vsync? its batching in 3 draw calls @ 4k when max indices is set to 10k, i know IMGUI cuts 1/2 my budget
+	// too bad!
+	R2_TRACE("Delta Time: {0} seconds o/ ({1} ms) & {2} fps", ts.GetSeconds(), ts.GetMilliseconds(), 1000 / ts.GetMilliseconds());
+
 	ROUGE2::Renderer2D::ResetStats();
 	{
 		OSVI_PROFILE_SCOPE("PREP");
@@ -70,19 +77,30 @@ void Sandbox2D::OnUpdate(ROUGE2::Timestep ts){
 		//Just render it in front for now. Too bad!
 		ROUGE2::Renderer2D::DrawRotQuad({ 0.3f, 1.0f, 0.1f }, { 0.8f, 0.8f }, 45.0f, m_Texture, m_TintColor);
 		
-		//m_ParticleSystem.Emit(m_EngineParticle);
-		//m_ParticleSystem.OnRender();
+
+#ifdef PARTICLE_TEST
+		m_ParticleSystem.Emit(m_EngineParticle);
+		m_ParticleSystem.OnRender();
+#endif 
 
 		ROUGE2::Renderer2D::EndScene();
 
-		/*ROUGE2::Renderer2D::BeginScene(m_CameraController.GetCamera());
+
+
+		// Blending Gradient Test
+
+#ifdef GRADIENT_TEST
+		ROUGE2::Renderer2D::BeginScene(m_CameraController.GetCamera());
 		for (float y = -5.0f; y < 5.0f; y += 0.5f){
 			for (float x = -5.0f; x < 5.0f; x += 0.5f){
 				glm::vec4 color = { (x + 5.0f) / 10.0f, 0.4f, (y + 5.0f) / 10.0f, 0.7f };
 				ROUGE2::Renderer2D::DrawQuad({ x, y, 1.0f }, { 0.45f, 0.45f }, color);
 			}
 		}
-		ROUGE2::Renderer2D::EndScene();*/
+		ROUGE2::Renderer2D::EndScene();
+#endif
+
+		
 	}
 
 
@@ -90,6 +108,7 @@ void Sandbox2D::OnUpdate(ROUGE2::Timestep ts){
 }
 
 void Sandbox2D::OnImGuiRender(){
+#ifdef IMGUI 
 	OSVI_PROFILE_FUNCTION();
 	//SETTINGS
 	ImGui::Begin("Settings");
@@ -119,6 +138,7 @@ void Sandbox2D::OnImGuiRender(){
 
 
 	ImGui::End();
+#endif
 }
 
 void Sandbox2D::OnEvent(ROUGE2::Event& e){
