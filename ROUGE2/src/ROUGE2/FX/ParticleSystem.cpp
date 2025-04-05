@@ -9,7 +9,7 @@
 
 namespace ROUGE2 {
 	ParticleSystem::ParticleSystem(){
-		m_ParticlePool.resize(1000);
+		m_ParticlePool.resize(10000);
 	}
 
 	void ParticleSystem::Emit(const ParticleProps& particleProps){

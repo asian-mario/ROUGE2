@@ -5,10 +5,15 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include "Platform/OpenGL/OpenGLShader.h"
+#include "ROUGE2/Core/Input.h"
+#include "ROUGE2/Core/KeyCodes.h"
 
 #define IMGUI
-#define GRADIENT_TEST
+
 #define PARTICLE_TEST
+#define GRADIENT_TEST
+
+float particleSpeed = 1.0f;
 
 Sandbox2D::Sandbox2D()
 	: Layer("Sandbox2D"), m_CameraController(1280.0f / 720.0f)
@@ -31,6 +36,8 @@ void Sandbox2D::OnAttach(){
 	m_EngineParticle.ColorBegin = { 254 / 255.0f, 109 / 255.0f, 41 / 255.0f, 1.0f };
 	m_EngineParticle.ColorEnd = { 254 / 255.0f, 212 / 255.0f, 123 / 255.0f , 1.0f };
 	m_EngineParticle.LifeTime = 1.0f;
+
+
 }
 
 void Sandbox2D::OnDetach(){
@@ -42,7 +49,7 @@ void Sandbox2D::OnUpdate(ROUGE2::Timestep ts){
 
 	OSVI_PROFILE_FUNCTION();
 
-
+	
 	m_CameraController.OnUpdate(ts);
 	m_ParticleSystem.OnUpdate(ts);
 
@@ -62,6 +69,24 @@ void Sandbox2D::OnUpdate(ROUGE2::Timestep ts){
 	{
 		static float rotation = 0.0f;
 		rotation += ts * 20.0f;
+
+		{
+			if (ROUGE2::Input::IsKeyPressed(R2_KEY_I)) {
+				m_EngineParticle.Position.y += particleSpeed * ts;
+			}
+			else if (ROUGE2::Input::IsKeyPressed(R2_KEY_K)) {
+				m_EngineParticle.Position.y -= particleSpeed * ts;
+			}
+
+			if (ROUGE2::Input::IsKeyPressed(R2_KEY_L)) {
+				m_EngineParticle.Position.x += particleSpeed * ts;
+			}
+			else if (ROUGE2::Input::IsKeyPressed(R2_KEY_J)) {
+				m_EngineParticle.Position.x -= particleSpeed * ts;
+			}
+
+		}
+
 		OSVI_PROFILE_SCOPE("RENDER DRAW");
 
 		ROUGE2::Renderer2D::BeginScene(m_CameraController.GetCamera());
@@ -75,14 +100,15 @@ void Sandbox2D::OnUpdate(ROUGE2::Timestep ts){
 		//------------------------------TRANSPARENT------------------------------
 		//TODO: fix false blending issue if transparent object is rendered before a BG object thats behind it
 		//Just render it in front for now. Too bad!
-		ROUGE2::Renderer2D::DrawRotQuad({ 0.3f, 1.0f, 0.1f }, { 0.8f, 0.8f }, 45.0f, m_Texture, m_TintColor);
 		
+
 
 #ifdef PARTICLE_TEST
 		m_ParticleSystem.Emit(m_EngineParticle);
 		m_ParticleSystem.OnRender();
 #endif 
 
+		ROUGE2::Renderer2D::DrawRotQuad({ 0.3f, 1.0f, 0.1f }, { 0.8f, 0.8f }, 45.0f, m_Texture, m_TintColor);
 		ROUGE2::Renderer2D::EndScene();
 
 
@@ -104,7 +130,6 @@ void Sandbox2D::OnUpdate(ROUGE2::Timestep ts){
 	}
 
 
-	ROUGE2::Renderer2D::EndScene();
 }
 
 void Sandbox2D::OnImGuiRender(){
@@ -136,6 +161,13 @@ void Sandbox2D::OnImGuiRender(){
 	ImGui::Text("Scene Vertices : %d", stats.GetTotalVertexCount());
 	ImGui::Text("Scene Indices : %d", stats.GetTotalIndexCount());
 
+	ImGui::End();
+
+	//MISC CONTROLS
+	ImGui::Begin("Misc. Controls");
+	ImGui::Text("Particle System Key Effector");
+
+	ImGui::SliderFloat("Effector", &particleSpeed, 0, 10);
 
 	ImGui::End();
 #endif
